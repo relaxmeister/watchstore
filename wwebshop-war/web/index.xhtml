@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="styling.css"  />
+        <div id="d1">
+        <f:view>
+            
+                
+                <h:form id="f1">
+                    <div id="d2">
+                        <h:graphicImage 
+                            name="webshop-mobilshop.jpg" 
+                            library="images" 
+                            rendered="true"
+                            height="200" 
+                            width="240"
+                        />
+                        <h:outputLabel styleClass="headline">Username</h:outputLabel>
+                        
+                        <h:inputText 
+                            id="loginUsername"
+                            styleClass="inputContent"
+                            value="#{webshopController.loginUsername}"
+                            required="true"
+                            requiredMessage="Please enter username"
+                            binding="#{usernameComponent}"
+                        >
+                        
+                        </h:inputText>
+                        <h:message for="loginUsername" />
+                        
+                        <h:outputLabel styleClass="headline">Password</h:outputLabel>
+                        <h:inputSecret 
+                            id="loginPassword"
+                            value="#{webshopController.loginPassword}"
+                            styleClass="inputContent"
+                            required="#{not empty usernameComponent.value}"
+                            requiredMessage="Please enter password"
+                            
+                        >
+                           <!-- <f:validator validatorId="loginValidator" /> -->
+                            <f:attribute name="usernameValue" value="#{usernameComponent.value}" />
+                        </h:inputSecret>
+                        <h:message for="loginPassword" />
+                        
+
+                        <h:commandButton
+                            styleClass="buttonContent"
+                            id="f1" 
+                            value="Log in"
+                            action="#{webshopController.loginHandler()}"
+                        />
+                        <div id="d3">
+                            <h:commandLink 
+                                styleClass="textButton"
+                                id="f2" 
+                                value="Forgot password?" 
+                                immediate="true"
+                            />
+                            <h:outputLabel 
+                                styleClass="textBullet">•</h:outputLabel>
+                            <h:commandLink 
+                                styleClass="textButton"
+                                id="f3"
+                                value="Create an account"
+                                action="createAccount"
+                                immediate="true"
+                            />
+                        </div>
+                    </div>
+                </h:form>
+                
+           
+           
+        </f:view>
+            
+        </div>
+    </h:body>
+</html>
+

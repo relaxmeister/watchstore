@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="styling.css"  />
+        <div id="d1">
+            <f:view>
+
+
+                <h:form id="f2">
+                    <div id="d2">
+                        <h:graphicImage 
+                            name="webshop-mobilshop.jpg" 
+                            library="images" 
+                            rendered="true"
+                            height="200" 
+                            width="240"
+                            />
+                        <h2 id="createAccHeadline">Create an Account</h2>
+                        <p class="textButton">(or 
+                            <h:commandLink 
+                                styleClass="textButton"
+                                id="f2" 
+                                value="Log in)" 
+                                action="index"
+                                immediate="true"
+                                />
+
+                        </p>
+                        <h:outputLabel styleClass="headline">Username</h:outputLabel>
+                        <h:inputText 
+                            id="createAccUsername"
+                            value="#{webshopController.createUsername}"
+                            styleClass="inputContent"
+                            required="true"
+                            requiredMessage="Please enter username"
+                            >
+                           
+                        </h:inputText>
+                        <h:message for="createAccUsername" />
+                        
+                        <h:outputLabel styleClass="headline">Password</h:outputLabel>
+                        <h:inputSecret 
+                            id="password" 
+                            binding="#{passwordComponent}" 
+                            value="#{webshopController.createPassword}" 
+                            required="true"
+                            requiredMessage="Please enter password" 
+                            validatorMessage="Please enter at least 8 characters"
+                            styleClass="inputContent"
+                            >
+                            <f:validateLength minimum="8" />
+                        </h:inputSecret>
+                        <h:message for="password" />
+
+                        <h:outputLabel styleClass="headline">Confirm Password</h:outputLabel>
+                        <h:inputSecret 
+                            id="confirmPassword" 
+                            required="#{not empty passwordComponent.value}"
+                            requiredMessage="Please confirm password" 
+                            validatorMessage="Passwords are not equal"
+                            styleClass="inputContent"
+                            >
+                            <f:validator validatorId="equalsValidator" />
+                            <f:attribute name="otherValue" value="#{passwordComponent.value}" />
+                            
+                        </h:inputSecret>
+                        <h:message for="confirmPassword" />
+                        
+
+                        <h:commandButton
+                            styleClass="buttonContent"
+                            id="f1" 
+                            value="Create Account" 
+                            action="#{webshopController.createAccountHandler()}"
+                            />
+
+                    </div>
+                </h:form>
+
+
+
+            </f:view>
+        </div>
+    </h:body>
+</html>
+

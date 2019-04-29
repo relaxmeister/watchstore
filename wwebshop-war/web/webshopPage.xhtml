@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="webshopPage.css"  />
+        <div id="container">
+            <div id="pageContent">
+                <h:graphicImage 
+                    name="webshop-mobilshop.jpg" 
+                    library="images" 
+                    rendered="true"
+                    height="200" 
+                    width="240"
+                    />
+                <div id="logoutContainer">
+                    <a href="checkout.xhtml" id="cart">
+                        <h:graphicImage 
+                            name="shopping-cart.png"
+                            library="images"
+                            rendered="true"
+                            height="18"
+                            width="18"
+                        />
+                    </a>
+                    <a 
+                        class="logout"
+                        href="index.xhtml"
+                        id="f3"
+
+                    >Log Out
+                    </a>
+                    
+                </div>
+                <div id="header">
+                    <h1>Products for sale</h1>
+                </div>
+                <div id="searchBar">
+                    <h:form>
+                       <h:inputText 
+                           id="search" 
+                           pt:placeholder="Sök produkter"
+                           value="#{webshopController.searchString}"
+                           onkeypress="if (event.keyCode == 13) {onchange(event); return false;}"
+                           onchange="return event.keyCode !== undefined"
+                           
+                       >
+                           <f:ajax listener="#{webshopController.updateBook}" render="output" />
+                       </h:inputText>
+
+                       <h2>
+                           <h:outputText id="output" value="#{webshopController.book}"/>
+                       </h2>
+                   </h:form>
+
+                </div>
+                <div id="content">
+                    <div class="product" onclick="location.href = 'productInfo.xhtml';" style="cursor: pointer;">
+                        <p>Luke Perry</p>
+                        <p>13yo</p>
+                        <p>good product</p>
+                    </div>
+                    <div class="product" onclick="location.href = 'productInfo.xhtml';" style="cursor: pointer;">
+                        <p>Morris the cat, 13yo, good cat product</p>
+                    </div>
+                    <div class="product" onclick="location.href = 'productInfo.xhtml';" style="cursor: pointer;">
+                        <p>Morris the cat, 13yo, good cat product</p>
+                    </div>
+                    <ui:repeat value="#{webshopController.watches}" var="watch">
+                        <div class="product" value="#{watch.name}" action="#{webshopController.placeholder()}" style="cursor: pointer;"><!--kanske går det direkt-->
+                            <!--lägg till bilder :)-->
+                            <h:outputText value="#{watch.name}" />
+                            
+                            <h:outputText value="#{watch.price}" />
+                            
+                        </div>
+                    </ui:repeat>
+                </div>
+
+            </div>
+        </div>
+    </h:body>
+</html>
+
