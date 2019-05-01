@@ -60,28 +60,26 @@
                    </h:form>
 
                 </div>
-                <div id="content">
-                    <div class="product" onclick="location.href = 'productInfo.xhtml';" style="cursor: pointer;">
-                        <p>Luke Perry</p>
-                        <p>13yo</p>
-                        <p>good product</p>
-                    </div>
-                    <div class="product" onclick="location.href = 'productInfo.xhtml';" style="cursor: pointer;">
-                        <p>Morris the cat, 13yo, good cat product</p>
-                    </div>
-                    <div class="product" onclick="location.href = 'productInfo.xhtml';" style="cursor: pointer;">
-                        <p>Morris the cat, 13yo, good cat product</p>
-                    </div>
+                <h:form id="content">
                     <ui:repeat value="#{webshopController.watches}" var="watch">
-                        <div class="product" value="#{watch.name}" action="#{webshopController.placeholder()}" style="cursor: pointer;"><!--kanske går det direkt-->
-                            <!--lägg till bilder :)-->
-                            <h:outputText value="#{watch.name}" />
-                            
-                            <h:outputText value="#{watch.price}" />
-                            
+                        <div class="product">
+                            <h:commandLink action="#{webshopController.takeMeToProductInfo()}">
+                                <h:graphicImage name="#{watch.image}.jpg" 
+                                                library="images" 
+                                                rendered="true"
+                                                width="100%"
+                                                height="240"
+                                                />
+                                <f:setPropertyActionListener target="#{webshopController.watch}" value="#{watch}" />
+                            </h:commandLink>
+                            <h:outputText value="#{watch.name}" class="productName" />                           
+                            <h:outputText value="#{watch.price} kr" class="productPrice" />
+                            <h:commandButton styleClass="addToCart" value="Add to Cart" action="#{webshopController.addToCart()}">
+                                <f:setPropertyActionListener target="#{webshopController.watch}" value="#{watch}" />
+                            </h:commandButton>                          
                         </div>
                     </ui:repeat>
-                </div>
+                </h:form>
 
             </div>
         </div>
