@@ -80,7 +80,7 @@ and open the template in the editor.
     
     width: 100%;
 }
-#addToCart {
+.addToCart {
     background-color:#3f9687;
     -moz-border-radius:8px;
     -webkit-border-radius:8px;
@@ -100,11 +100,11 @@ and open the template in the editor.
     margin-bottom: 10%;
     border: none;
 }
-#addToCart:hover {
+.addToCart:hover {
     background-color:#d1d3d1;
     color: grey;
 }
-#addToCart:active {
+.addToCart:active {
     position:relative;
     top:1px;
 }
