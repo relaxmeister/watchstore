@@ -82,23 +82,50 @@ public class PersonHandler {
             Watches watch = new Watches();
             watch.setName("Rolex Yacht-Master");
             watch.setPrice(359995);
+            watch.setImage("rolexYacht");
+//            watch.setModel(model);
+//            watch.setType(type);
+//            watch.setDiameter(diameter);
+//            watch.setThickness(thickness);
+//            watch.setBoett(boett);
+//            watch.setBacksideBoett(backsideBoett);
+//            watch.setArmband(armband);
+//            watch.setUrtavla(urtavla);
+//            watch.setSpänne(spänne);
+//            watch.setGlas(glas);
+//            watch.setBezel("");
+//            watch.setUrverkstyp(urverkstyp);
+//            watch.setSekundvisare(sekundvisare);
+//            watch.setDatumangivelse(datumangivelse);
+//            watch.setVattenskydd(vattenskydd);
+//            watch.setFunktioner(funktioner);
+//            watch.setÖvrigt("");
+            
+            
             persist(watch);
+            
+            
+            
+            
 
             watch = new Watches();
             watch.setName("Cartier Ballon Blue");
             watch.setPrice(440210);
+            watch.setImage("cartierBlue");
             persist(watch);
 
 
             watch = new Watches();
             watch.setName("Patek Philippe Aquanaut");
             watch.setPrice(461695);
+            watch.setImage("patek");
             persist(watch);
 
 
             watch = new Watches();
             watch.setName("Omega Constellation Day-Date");
             watch.setPrice(121260);
+            watch.setImage("OmegaSeamaster");
             persist(watch);
 
         }
