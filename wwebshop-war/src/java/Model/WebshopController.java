@@ -37,6 +37,10 @@ public class WebshopController implements Serializable {
     
     //watches
     private List<Watches> watches;
+    private Watches watch;
+    
+    private List<Watches> shoppingCart = new ArrayList<>();
+    private double totalPrice = 0;
     //kanske ett watch-obj för att bli till vid ett klick? 
     //som sedan levereras till list för shopcart
     
@@ -116,6 +120,31 @@ public class WebshopController implements Serializable {
         this.watches = watches;
     }
 
+    public Watches getWatch() {
+        return watch;
+    }
+
+    public void setWatch(Watches watch) {
+        this.watch = watch;
+    }
+
+    public List<Watches> getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(List<Watches> shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    
     public void initUsers() {
         //kicka igång entity-users
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ready User Set Go", null);
@@ -183,8 +212,22 @@ public class WebshopController implements Serializable {
     }
     
     //en metod som skickar värdet av produkt-namnet och får tillbaka objektet som adderas till shopcart-listan
-    public void placeholder() {
+    //en metod som tar emot en watch och skickar vidare till productinfo som visar upp objektet
+    public String takeMeToProductInfo() {
         
+        return "productInfo";
+    }
+    
+    public void addToCart() {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,watch.getName(),null);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        //System.out.println(watch.getName());
+        shoppingCart.add(watch);
+        countTotalPrice();
+    }
+    
+    public void countTotalPrice() {
+        shoppingCart.forEach(e -> totalPrice += e.getPrice());
     }
     //en metod som räknar ut totala kostnaden för shopcart, körs i samband med klickmetod ovan
     
