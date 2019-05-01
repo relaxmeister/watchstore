@@ -227,9 +227,15 @@ public class WebshopController implements Serializable {
     }
     
     public void countTotalPrice() {
+	totalPrice = 0;
         shoppingCart.forEach(e -> totalPrice += e.getPrice());
     }
     //en metod som räknar ut totala kostnaden för shopcart, körs i samband med klickmetod ovan
+    
+    public void removeFromCart(){
+	shoppingCart.remove(watch);
+	countTotalPrice();
+    }
     
     /**
      * Creates a new instance of WebshopController

@@ -42,7 +42,7 @@
                                             />
                             <h:outputText value="#{watch.name}" class="productName"/><br />                            
                             <h:outputText value="#{watch.price}" class="productPrice"/>
-                            <h:commandButton value="Remove" action="#{webshopController.addToCart()}">
+                            <h:commandButton value="Remove" action="#{webshopController.removeFromCart()}">
                                 <f:setPropertyActionListener target="#{webshopController.watch}" value="#{watch}" />
                             </h:commandButton>
                             
