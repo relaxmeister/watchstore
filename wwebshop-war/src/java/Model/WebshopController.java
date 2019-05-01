@@ -237,6 +237,13 @@ public class WebshopController implements Serializable {
 	countTotalPrice();
     }
     
+    public void confirmOrder(){
+	shoppingCart.forEach((Watches e) -> {
+	    Purchase p = new Purchase(loginUser, e, e.getPrice());
+	    personHandler.persist(p);
+	});
+    }
+    
     /**
      * Creates a new instance of WebshopController
      */

@@ -53,10 +53,8 @@
                         <h:outputText value="Total Price: "/>                           
                         <h:outputText value="#{webshopController.totalPrice}"/>
                     </div>
-                    <button id="placeOrder">Order</button>
+		    <h:commandButton id="placeOrder" value="Order" action="#{webshopController.confirmOrder()}"></h:commandButton>
                 </h:form>
-  
-            
             </div>
         </div>
     </h:body>
