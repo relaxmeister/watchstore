@@ -85,7 +85,7 @@ and open the template in the editor.
     width: 100%;
 }
 
-#placeOrder {
+.placeOrder {
     background-color:#3f9687;
     -moz-border-radius:8px;
     -webkit-border-radius:8px;
@@ -110,6 +110,7 @@ and open the template in the editor.
     background-color:#d1d3d1;
     color: grey;
 }
+
 #placeOrder:active {
     position:relative;
     top:1px;
