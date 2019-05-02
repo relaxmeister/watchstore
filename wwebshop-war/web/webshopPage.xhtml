@@ -47,16 +47,15 @@
                            id="search" 
                            pt:placeholder="Sök produkter"
                            value="#{webshopController.searchString}"
-                           onkeypress="if (event.keyCode == 13) {onchange(event); return false;}"
-                           onchange="return event.keyCode !== undefined"
-                           
-                       >
-                           <f:ajax listener="#{webshopController.updateBook}" render="output" />
+			   onkeypress="if (event.keyCode == 13) { onchange(); return false; }">
+			   <f:ajax event="change" listener="#{webshopController.search}" render="searchResult"/>
                        </h:inputText>
 
-                       <h2>
-                           <h:outputText id="output" value="#{webshopController.book}"/>
-                       </h2>
+			<h:panelGroup id="searchResult">
+			    <ui:repeat value="#{webshopController.searchResult}" var="watch">
+				<br/><h:outputText value="#{watch.name}"/>
+			    </ui:repeat>
+			</h:panelGroup>
                    </h:form>
 
                 </div>
