@@ -48,19 +48,20 @@ and open the template in the editor.
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
+    
+    background-color: #eee;
     width: 100%;
 }
 
 #content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content:center;
     align-items: center;
     
-    width: 90%;
-    margin-right: 5%;
-    margin-left: 5%;
+    width: 100%;
+    
+    
     
 }
 .product {
@@ -68,8 +69,27 @@ and open the template in the editor.
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+    margin-top: 12px;
     width: 100%;
+}
+
+.productName {
+    font-size: 24px;
+    display: block;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.productModel {
+    color: grey;
+    font-size: 12px;
+}
+
+.productPrice {
+    font-size: 26px;
+    color: darkred;
+    display: block;
+    font-weight: bolder;
 }
 
 #info {
@@ -80,8 +100,26 @@ and open the template in the editor.
     
     width: 100%;
 }
+.productInfo {
+    border: 1px solid lightgray;
+    width: 100%;
+    padding: 10px;
+}
+
+.productInfoHeader {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.infoMiniHeadline {
+    display: block;
+}
+
+.infoText {
+    
+}
 .addToCart {
-    background-color:#3f9687;
+    background-color:green;
     -moz-border-radius:8px;
     -webkit-border-radius:8px;
     border-radius:8px;
@@ -95,7 +133,7 @@ and open the template in the editor.
     padding:16px;
     text-decoration:none;
     text-shadow:0px 1px 0px #2f6627;
-    width: 100%;
+    width: 50%;
     margin-top: 4%;
     margin-bottom: 10%;
     border: none;
