@@ -42,32 +42,40 @@ public class WebshopController implements Serializable {
     private List<Watches> watches;
     private Watches watch;
     
+    private List<Watches> searchResult;
+    private String searchString;
+    
     private List<Watches> shoppingCart = new ArrayList<>();
     private double totalPrice = 0;
     //kanske ett watch-obj för att bli till vid ett klick? 
     //som sedan levereras till list för shopcart
     
-    
-
     //kopplat till navigation
     private boolean isAdmin;
     private boolean isNormie;
     
+     /**
+     * Creates a new instance of WebshopController
+     */
+    public WebshopController() {
+    }
+    
 
-    //@ViewScope för searchbar? ny bean?
-    private Map<String, String> exampleData = new HashMap<String, String>() {
-        {
-            put("dune", "The Dune Book");
-            put("lotr", "The Lord of the Rings Book");
-        }
-    };
+    public void search(AjaxBehaviorEvent e) {
+	searchResult = new ArrayList<>();
+	watches.forEach((Watches w) -> {
+	    if(w.getName().toLowerCase().contains(searchString.toLowerCase())){
+		searchResult.add(w);
+	    }
+	});
+    }
 
-    private String searchString;
-    private String book;
+    public List<Watches> getSearchResult() {
+	return searchResult;
+    }
 
-    public void updateBook(AjaxBehaviorEvent event) {
-        book = exampleData.get(searchString);
-        setSearchString("");
+    public void setSearchResult(List<Watches> searchResult) {
+	this.searchResult = searchResult;
     }
 
     public String getSearchString() {
@@ -78,11 +86,6 @@ public class WebshopController implements Serializable {
         this.searchString = searchString;
     }
 
-    public String getBook() {
-        return book;
-    }
-
-    //
     public String getLoginUsername() {
         return loginUsername;
     }
@@ -280,12 +283,4 @@ public class WebshopController implements Serializable {
         clearCart();
 	return "webshopPage.xhtml";
     }
-    
-    /**
-     * Creates a new instance of WebshopController
-     */
-    public WebshopController() {
-        
-    }
-
 }
