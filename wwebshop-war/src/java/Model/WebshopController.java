@@ -69,6 +69,10 @@ public class WebshopController implements Serializable {
 	    }
 	});
     }
+    
+    public void clearSearch(AjaxBehaviorEvent e){
+	searchResult.clear();
+    }
 
     public List<Watches> getSearchResult() {
 	return searchResult;

@@ -49,6 +49,7 @@
                            value="#{webshopController.searchString}"
 			   onkeypress="if (event.keyCode == 13) { onchange(); return false; }">
 			   <f:ajax event="change" listener="#{webshopController.search}" render="searchResult"/>
+			   <f:ajax event="blur" listener="#{webshopController.clearSearch}" render="searchResult"/>
                        </h:inputText>
 
 			<h:panelGroup id="searchResult">
@@ -61,7 +62,6 @@
 			    </ui:repeat>
 			</h:panelGroup>
                    </h:form>
-
                 </div>
                 <h:form id="content">
                     <ui:repeat value="#{webshopController.watches}" var="watch">
