@@ -72,7 +72,8 @@
                                                 />
                                 <f:setPropertyActionListener target="#{webshopController.watch}" value="#{watch}" />
                             </h:commandLink>
-                            <h:outputText value="#{watch.name}" class="productName" />                           
+                            <h:outputText value="#{watch.name}" class="productName" />
+                            <h:outputText value="#{watch.model}" class="productModel" />
                             <h:outputText value="#{watch.price} kr" class="productPrice" />
                             <h:commandButton styleClass="addToCart" value="Add to Cart" action="#{webshopController.addToCart()}">
                                 <f:setPropertyActionListener target="#{webshopController.watch}" value="#{watch}" />

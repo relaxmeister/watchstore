@@ -42,6 +42,8 @@ public class Watches implements Serializable {
     //Urverk och Funktioner
     private String urverkstyp;
     private String sekundvisare;
+    private String urverk;
+    private String gångreserv;
     private String datumangivelse;
     private String vattenskydd;
     private String funktioner;
@@ -173,6 +175,22 @@ public class Watches implements Serializable {
 
     public void setSekundvisare(String sekundvisare) {
         this.sekundvisare = sekundvisare;
+    }
+
+    public String getUrverk() {
+        return urverk;
+    }
+
+    public void setUrverk(String urverk) {
+        this.urverk = urverk;
+    }
+
+    public String getGångreserv() {
+        return gångreserv;
+    }
+
+    public void setGångreserv(String gångreserv) {
+        this.gångreserv = gångreserv;
     }
 
     public String getDatumangivelse() {

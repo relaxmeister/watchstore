@@ -83,25 +83,25 @@ public class PersonHandler {
             watch.setName("Rolex Yacht-Master");
             watch.setPrice(359995);
             watch.setImage("rolexYacht");
-//            watch.setModel(model);
-//            watch.setType(type);
-//            watch.setDiameter(diameter);
-//            watch.setThickness(thickness);
-//            watch.setBoett(boett);
-//            watch.setBacksideBoett(backsideBoett);
-//            watch.setArmband(armband);
-//            watch.setUrtavla(urtavla);
-//            watch.setSpänne(spänne);
-//            watch.setGlas(glas);
-//            watch.setBezel("");
-//            watch.setUrverkstyp(urverkstyp);
-//            watch.setSekundvisare(sekundvisare);
-//            watch.setDatumangivelse(datumangivelse);
-//            watch.setVattenskydd(vattenskydd);
-//            watch.setFunktioner(funktioner);
-//            watch.setÖvrigt("");
-            
-            
+            watch.setModel("116688");
+            watch.setType("Herrklocka, Seglarmoell");
+            watch.setDiameter("44 mm");
+            watch.setThickness("14 mm");
+            watch.setBoett("Polerat 18 karat gult guld");
+            watch.setBacksideBoett("Solid");
+            watch.setArmband("Borstat och polerat 18 karat gult guld. Oysterlock");
+            watch.setUrtavla("Vit med självlysande indexmarkeringar, självlysande visare");
+            watch.setSpänne("Viklås i 18 karat gult guld. Oysterclasp");
+            watch.setGlas("Repskyddat safirglas");
+            watch.setBezel("Keramisk, blå, vridbar medsols/motsols");
+            watch.setUrverkstyp("Automatisk, självuppdragande");
+            watch.setSekundvisare("Svepande");
+            watch.setUrverk("Rolex-in-house 4160 med 42 juveler, 28800 vph");
+            watch.setGångreserv("72 timmar");
+            watch.setDatumangivelse("");
+            watch.setVattenskydd("100 meter");
+            watch.setFunktioner("Kronograf (regatta)");
+            watch.setÖvrigt("Kronometer (COSC-certifierad), skruvkrona");
             persist(watch);
             
             
@@ -112,6 +112,8 @@ public class PersonHandler {
             watch.setName("Cartier Ballon Blue");
             watch.setPrice(440210);
             watch.setImage("cartierBlue");
+            watch.setModel("116688");
+            watch.setType("5");
             persist(watch);
 
 
@@ -119,6 +121,8 @@ public class PersonHandler {
             watch.setName("Patek Philippe Aquanaut");
             watch.setPrice(461695);
             watch.setImage("patek");
+            watch.setModel("116688");
+            watch.setType("5");
             persist(watch);
 
 
@@ -126,6 +130,8 @@ public class PersonHandler {
             watch.setName("Omega Constellation Day-Date");
             watch.setPrice(121260);
             watch.setImage("OmegaSeamaster");
+            watch.setModel("116688");
+            watch.setType("5");
             persist(watch);
 
         }

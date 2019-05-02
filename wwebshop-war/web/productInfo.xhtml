@@ -16,7 +16,7 @@
                     rendered="true"
                     height="200" 
                     width="240"
-                />
+                    />
                 <div id="logoutContainer">
                     <a href="checkout.xhtml" id="cart">
                         <h:graphicImage 
@@ -25,14 +25,14 @@
                             rendered="true"
                             height="18"
                             width="18"
-                        />
+                            />
                     </a>
                     <a 
                         class="logout"
                         href="index.xhtml"
                         id="f3"
 
-                    >Log Out
+                        >Log Out
                     </a>
                 </div>
                 <div id="header">
@@ -43,12 +43,96 @@
                         <h:graphicImage name="#{webshopController.watch.image}.jpg" 
                                         library="images" 
                                         rendered="true"
-                                        width="100%"
-                                        height="240"
+                                        width="80%"
+                                        height="266"
                                         />
-                        <h:outputText value="#{webshopController.watch.name}"/><br />                            
-                        <h:outputText value="#{webshopController.watch.price}"/>
+                        <h:outputText value="#{watch.name}" class="productName" />
+                        <h:outputText value="#{watch.model}" class="productModel" />
+                        <h:outputText value="#{watch.price} kr" class="productPrice" />
+
                         <h:commandButton styleClass="addToCart" value="Add To Cart" action="#{webshopController.addToCart()}" />
+                    </div>
+                    <div id="productInfo">
+                        <h:outputText value="Material o Utförande" class="productInfoHeader" />
+
+                        <div style="#{webshopController.watch.model == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Modell:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.model}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.type == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Typ:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.type}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.diameter == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Diameter:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.diameter}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.thickness == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Tjocklek:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.thickness}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.boett == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Boett:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.boett}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.backsideBoett == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Baksida boett:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.backsideBoett}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.armband == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Armband:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.armband}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.urtavla == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Urtavla:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.urtavla}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.spänne == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Spänne:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.spänne}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.glas == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Glas:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.glas}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.bezel == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Bezel:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.bezel}" class="infoText"/>
+                        </div>
+
+                        <h:outputText value="Urverk o Funktioner" class="productInfoHeader" />                        
+                        <div style="#{webshopController.watch.urverkstyp == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Urverkstyp:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.urverkstyp}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.sekundvisare == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Sekundvisare:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.sekundvisare}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.urverk == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Urverk:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.urverk}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.gångreserv == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Gångreserv:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.gångreserv}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.datumangivelse == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Datumangivelse:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.datumangivelse}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.vattenskydd == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Vattenskydd:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.vattenskydd}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.funktioner == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Funktioner:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.funktioner}" class="infoText"/>
+                        </div>
+                        <div style="#{webshopController.watch.övrigt == null ? 'display:none' : 'display:block'}">
+                            <h:outputText value="Övrigt:" class="infoMiniHeadline"/>
+                            <h:outputText value="#{webshopController.watch.övrigt}" class="infoText"/>
+                        </div>                        
                     </div>
                 </h:form>
             </div>
