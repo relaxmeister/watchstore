@@ -26,6 +26,9 @@ import javax.faces.event.AjaxBehaviorEvent;
 public class WebshopController implements Serializable {
 
     @EJB
+    private CartBean cartBean;
+
+    @EJB
     private PersonHandler personHandler;
 
     private People loginUser;
@@ -217,12 +220,35 @@ public class WebshopController implements Serializable {
         
         return "productInfo";
     }
+    //hämtar carten från cartBean och updaterar i denna klass för view
+    public void updateCart(){
+        this.shoppingCart = cartBean.getCart();
+    }
+    
+    public void deleteFromCart(){
+        cartBean.deleteFromCart(watch);
+        updateCart();
+    }
+    
+    public void clearCart(){
+        this.shoppingCart.clear();
+        cartBean.clearCart();
+    }
+     
+    //Detta är för när vi ska göra om cart till beställning, lika bra att vi gör tillsammans när models ser är fixade
+//    public void checkOutCart(){
+//        for(Watch w : cart){
+//            order = new Purchase(user, w);
+//            c.persist(order);
+//        }
+//    }
     
     public void addToCart() {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,watch.getName(),null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
         //System.out.println(watch.getName());
-        shoppingCart.add(watch);
+        cartBean.addToCart(watch);
+        updateCart();
         countTotalPrice();
     }
     
