@@ -53,7 +53,11 @@
 
 			<h:panelGroup id="searchResult">
 			    <ui:repeat value="#{webshopController.searchResult}" var="watch">
-				<br/><h:outputText value="#{watch.name}"/>
+				<br/>
+				<h:commandLink action="#{webshopController.takeMeToProductInfo()}">
+				    <h:outputText value="#{watch.name}"/>
+				    <f:setPropertyActionListener target="#{webshopController.watch}" value="#{watch}"/>
+				</h:commandLink>
 			    </ui:repeat>
 			</h:panelGroup>
                    </h:form>
