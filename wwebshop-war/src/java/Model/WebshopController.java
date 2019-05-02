@@ -233,6 +233,7 @@ public class WebshopController implements Serializable {
     public void clearCart(){
         this.shoppingCart.clear();
         cartBean.clearCart();
+        updateCart();
     }
      
     //Detta är för när vi ska göra om cart till beställning, lika bra att vi gör tillsammans när models ser är fixade
@@ -268,6 +269,7 @@ public class WebshopController implements Serializable {
 	    Purchase p = new Purchase(loginUser, e, e.getPrice());
 	    personHandler.persist(p);
 	});
+        clearCart();
 	return "webshopPage.xhtml";
     }
     
