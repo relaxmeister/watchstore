@@ -207,8 +207,15 @@ public class WebshopController implements Serializable {
         if (user.getTypeOfUser().equals("admin")){
             return "adminpage.xhtml";
         }
-        else {
+        else if(user.getTypeOfUser().equals("premium")) {
             //user is either normal or premium
+            watches = personHandler.getAllWatches();
+            watches.forEach((w) -> {
+                w.setPrice(w.getPrice()*0.9);
+            });
+            return "webshopPage.xhtml";
+        }
+        else{
             watches = personHandler.getAllWatches();
             return "webshopPage.xhtml";
         }
