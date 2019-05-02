@@ -231,6 +231,7 @@ public class WebshopController implements Serializable {
     }
     
     public void clearCart(){
+	totalPrice = 0;
         this.shoppingCart.clear();
         cartBean.clearCart();
         updateCart();
