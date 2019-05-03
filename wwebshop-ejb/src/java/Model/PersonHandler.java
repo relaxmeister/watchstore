@@ -155,6 +155,20 @@ public class PersonHandler {
         }
         return watches;
     }
+    
+    public List<People> getAllUsers() {
+        List<People> users = new ArrayList();
+        
+        try {
+            Query q = em
+                    .createQuery("SELECT o FROM People o");
+            users = (List<People>) q.getResultList();
+
+        } catch (NoResultException | NonUniqueResultException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
 
 //automatgenererad metod
     public void persist(Object object) {
