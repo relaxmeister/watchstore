@@ -203,8 +203,7 @@ public class WebshopController implements Serializable {
         // if (String) value => any username => problem
         //gör en sökning på username, om inget hit, if null -> throw exception?
         //loginUser = personHandler.findByUsername(loginUsername);
-        personHandler.fillDBUsers();
-        personHandler.fillDBProducts();
+        personHandler.fillDB();
 
         if (personHandler.findByUsername(createUsername).getUsername() != null) { // name taken
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -218,9 +217,7 @@ public class WebshopController implements Serializable {
 
     public String loginHandler() {
 
-        personHandler.fillDBUsers();
-        personHandler.fillDBProducts();
-        //personHandler.fillDBPurchases();
+        personHandler.fillDB();
 
         loginUser = personHandler.findByUsername(loginUsername);
         if (loginUser.getUsername() == null) {
