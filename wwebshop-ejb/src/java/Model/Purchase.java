@@ -26,12 +26,9 @@ public class Purchase implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    @OneToOne()
     private People person;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "watch_id", referencedColumnName = "id")
+    @OneToOne()
     private Watches watch;
     private double total;
     private LocalDateTime purchaseDate;

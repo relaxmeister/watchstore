@@ -29,7 +29,15 @@ public class PersonHandler {
     @PersistenceContext(unitName = "wwebshop-ejbPU")
     private EntityManager em;
 
-    public void fillDBUsers() {
+    public void fillDB() {
+        People user1 = new People();
+        People user2 = new People();
+        People user3 = new People();
+        People user4 = new People();
+        Watches watch1 = new Watches();
+        Watches watch2 = new Watches();
+        Watches watch3 = new Watches();
+        Watches watch4 = new Watches();
         //containern hanterar sina egna transaktioner
         //vi har ju transaction-type="JTA" i vår persistence.xml
         //och detta är ju en EJB
@@ -39,51 +47,34 @@ public class PersonHandler {
         int size = q.getResultList().size();
         if (size < 1) {
 
-            People user = new People();
-            user.setUsername("admin");
-            user.setPassword("123");
-            user.setTypeOfUser("admin"); //enum i framtiden?
-            persist(user);
+            user1.setUsername("admin");
+            user1.setPassword("123");
+            user1.setTypeOfUser("admin"); //enum i framtiden?
+            persist(user1);
 
-            user = new People();
-            user.setUsername("user1");
-            user.setPassword("1234");
-            user.setTypeOfUser("normal");
-            persist(user);
+            user2.setUsername("user1");
+            user2.setPassword("1234");
+            user2.setTypeOfUser("normal");
+            persist(user2);
 
-            user = new People();
-            user.setUsername("user15");
-            user.setPassword("1234");
-            user.setTypeOfUser("normal");
-            persist(user);
+            user3.setUsername("user15");
+            user3.setPassword("1234");
+            user3.setTypeOfUser("normal");
+            persist(user3);
 
-            user = new People();
-            user.setUsername("user2");
-            user.setPassword("12345");
-            user.setTypeOfUser("premium");
-            persist(user);
+            user4.setUsername("user2");
+            user4.setPassword("12345");
+            user4.setTypeOfUser("premium");
+            persist(user4);
         }
-        //containern hanterar sina egna transaktioner, så
-        //vi får inte själva hantera dem:
-        //¨  em.getTransaction().commit();
-
-        // em.close();app-servern stänger resurserna, så vi ska inte stänga dem
-    }
-
-    public void fillDBProducts() {
-        //containern hanterar sina egna transaktioner
-        //vi har ju transaction-type="JTA" i vår persistence.xml
-        //och detta är ju en EJB
-        //så vi får inte själva hantera transaktioner:
-        //¨ em.getTransaction().begin();  
-        Query q = em.createQuery("select o from Watches o");
-        int size = q.getResultList().size();
+        
+        q = em.createQuery("select o from Watches o");
+        size = q.getResultList().size();
         if (size < 1) {
 
-            Watches watch = new Watches();
-            watch.setName("Rolex Yacht-Master");
-            watch.setPrice(359995);
-            watch.setImage("rolexYacht");
+            watch1.setName("Rolex Yacht-Master");
+            watch1.setPrice(359995);
+            watch1.setImage("rolexYacht");
 //            watch.setModel("116688");
 //            watch.setType("Herrklocka, Seglarmoell");
 //            watch.setDiameter("44 mm");
@@ -103,82 +94,200 @@ public class PersonHandler {
 //            watch.setVattenskydd("100 meter");
 //            watch.setFunktioner("Kronograf (regatta)");
 //            watch.setÖvrigt("Kronometer (COSC-certifierad), skruvkrona");
-            persist(watch);
+            persist(watch1);
 
-            watch = new Watches();
-            watch.setName("Cartier Ballon Blue");
-            watch.setPrice(440210);
-            watch.setImage("cartierBlue");
+            watch2.setName("Cartier Ballon Blue");
+            watch2.setPrice(440210);
+            watch2.setImage("cartierBlue");
 //            watch.setModel("116688");
 //            watch.setType("5");
-            persist(watch);
+            persist(watch2);
 
-            watch = new Watches();
-            watch.setName("Patek Philippe Aquanaut");
-            watch.setPrice(461695);
-            watch.setImage("patek");
+            watch3.setName("Patek Philippe Aquanaut");
+            watch3.setPrice(461695);
+            watch3.setImage("patek");
 //            watch.setModel("116688");
 //            watch.setType("5");
-            persist(watch);
+            persist(watch3);
 
-            watch = new Watches();
-            watch.setName("Omega Constellation Day-Date");
-            watch.setPrice(121260);
-            watch.setImage("OmegaSeamaster");
+            watch4.setName("Omega Constellation Day-Date");
+            watch4.setPrice(121260);
+            watch4.setImage("OmegaSeamaster");
 //            watch.setModel("116688");
 //            watch.setType("5");
-            persist(watch);
+            persist(watch4);
 
         }
+            
+        q = em.createQuery("select o from Purchase o");
+        size = q.getResultList().size();
+        if(size < 1){
+            
+            Purchase p1 = new Purchase();
+            p1.setWatch(watch1);
+            p1.setPerson(user1);
+            p1.setTotal(watch1.getPrice());
+            p1.setDate(LocalDateTime.now());
+            persist(p1);
+            
+            Purchase p2 = new Purchase();
+            p2.setWatch(watch2);
+            p2.setPerson(user2);
+            p2.setTotal(watch2.getPrice());
+            p2.setDate(LocalDateTime.now());
+            persist(p2);
+            
+            Purchase p3 = new Purchase();
+            p3.setWatch(watch3);
+            p3.setPerson(user3);
+            p3.setTotal(watch3.getPrice());
+            p3.setDate(LocalDateTime.now());
+            persist(p3);
+            
+            Purchase p4 = new Purchase();
+            p4.setWatch(watch2);
+            p4.setPerson(user3);
+            p4.setTotal(watch2.getPrice());
+            p4.setDate(LocalDateTime.now());
+            persist(p4);
+            
+            Purchase p5 = new Purchase();
+            p5.setWatch(watch4);
+            p5.setPerson(user4);
+            p5.setTotal(watch4.getPrice());
+            p5.setDate(LocalDateTime.now());
+            persist(p5);
+            
+            Purchase p6 = new Purchase();
+            p6.setWatch(watch1);
+            p6.setPerson(user1);
+            p6.setTotal(watch1.getPrice());
+            p6.setDate(LocalDateTime.now());
+            persist(p6);
+        }
+
         //containern hanterar sina egna transaktioner, så
         //vi får inte själva hantera dem:
         //¨  em.getTransaction().commit();
 
         // em.close();app-servern stänger resurserna, så vi ska inte stänga dem
     }
-
-    public void fillDBPurchases() {
-        Purchase p = new Purchase();
-
-        People user = new People();
-        user.setUsername("user1");
-        user.setPassword("1234");
-        user.setTypeOfUser("normal");
-        p.setPerson(user);
-
-        Watches watch = new Watches();
-        watch.setName("Cartier Ballon Blue");
-        watch.setPrice(440210);
-        watch.setImage("cartierBlue");
-//        watch.setModel("116688");
-//        watch.setType("5");
-        p.setWatch(watch);
-        p.setTotal(watch.getPrice());
-        p.setDate(LocalDateTime.now());
-
-        persist(p);
-
-        Purchase p2 = new Purchase();
-
-        People user2 = new People();
-        user2.setUsername("user5");
-        user2.setPassword("12345678");
-        user2.setTypeOfUser("normal");
-        p2.setPerson(user2);
-
-        Watches watch2 = new Watches();
-        watch2.setName("Patek Philippe Aquanaut");
-        watch2.setPrice(461695);
-        watch2.setImage("patek");
-//        watch.setModel("116688");
-//        watch.setType("5");
-        p2.setWatch(watch2);
-        p2.setTotal(watch2.getPrice());
-        p2.setDate(LocalDateTime.now());
-
-        persist(p2);
-    }
-
+    
+//    public void fillDBProducts() {
+//        //containern hanterar sina egna transaktioner
+//        //vi har ju transaction-type="JTA" i vår persistence.xml
+//        //och detta är ju en EJB
+//        //så vi får inte själva hantera transaktioner:
+//        //¨ em.getTransaction().begin();  
+//        Query q = em.createQuery("select o from Watches o");
+//        int size = q.getResultList().size();
+//        if (size < 1) {
+//
+//            Watches watch = new Watches();
+//            watch.setName("Rolex Yacht-Master");
+//            watch.setPrice(359995);
+//            watch.setImage("rolexYacht");
+////            watch.setModel("116688");
+////            watch.setType("Herrklocka, Seglarmoell");
+////            watch.setDiameter("44 mm");
+////            watch.setThickness("14 mm");
+////            watch.setBoett("Polerat 18 karat gult guld");
+////            watch.setBacksideBoett("Solid");
+////            watch.setArmband("Borstat och polerat 18 karat gult guld. Oysterlock");
+////            watch.setUrtavla("Vit med självlysande indexmarkeringar, självlysande visare");
+////            watch.setSpänne("Viklås i 18 karat gult guld. Oysterclasp");
+////            watch.setGlas("Repskyddat safirglas");
+////            watch.setBezel("Keramisk, blå, vridbar medsols/motsols");
+////            watch.setUrverkstyp("Automatisk, självuppdragande");
+////            watch.setSekundvisare("Svepande");
+////            watch.setUrverk("Rolex-in-house 4160 med 42 juveler, 28800 vph");
+////            watch.setGångreserv("72 timmar");
+////            watch.setDatumangivelse("");
+////            watch.setVattenskydd("100 meter");
+////            watch.setFunktioner("Kronograf (regatta)");
+////            watch.setÖvrigt("Kronometer (COSC-certifierad), skruvkrona");
+//            persist(watch);
+//            
+//            
+//            
+//            
+//
+//            watch = new Watches();
+//            watch.setName("Cartier Ballon Blue");
+//            watch.setPrice(440210);
+//            watch.setImage("cartierBlue");
+////            watch.setModel("116688");
+////            watch.setType("5");
+//            persist(watch);
+//
+//
+//            watch = new Watches();
+//            watch.setName("Patek Philippe Aquanaut");
+//            watch.setPrice(461695);
+//            watch.setImage("patek");
+////            watch.setModel("116688");
+////            watch.setType("5");
+//            persist(watch);
+//
+//
+//            watch = new Watches();
+//            watch.setName("Omega Constellation Day-Date");
+//            watch.setPrice(121260);
+//            watch.setImage("OmegaSeamaster");
+////            watch.setModel("116688");
+////            watch.setType("5");
+//            persist(watch);
+//
+//        }
+//        //containern hanterar sina egna transaktioner, så
+//        //vi får inte själva hantera dem:
+//        //¨  em.getTransaction().commit();
+//
+//        // em.close();app-servern stänger resurserna, så vi ska inte stänga dem
+//    }
+//    
+//    public void fillDBPurchases(){
+//        Purchase p = new Purchase();
+//        
+//        People user = new People();
+//        user.setUsername("user1");
+//        user.setPassword("1234");
+//        user.setTypeOfUser("normal");
+//        p.setPerson(user);
+//        
+//        Watches watch = new Watches();
+//        watch.setName("Cartier Ballon Blue");
+//        watch.setPrice(440210);
+//        watch.setImage("cartierBlue");
+////        watch.setModel("116688");
+////        watch.setType("5");
+//        p.setWatch(watch);
+//        p.setTotal(watch.getPrice());
+//        p.setDate(LocalDateTime.now());
+//        
+//        persist(p);
+//        
+//        Purchase p2 = new Purchase();
+//        
+//        People user2 = new People();
+//        user2.setUsername("user5");
+//        user2.setPassword("12345678");
+//        user2.setTypeOfUser("normal");
+//        p2.setPerson(user2);
+//        
+//        Watches watch2 = new Watches();
+//        watch2.setName("Patek Philippe Aquanaut");
+//        watch2.setPrice(461695);
+//        watch2.setImage("patek");
+////        watch.setModel("116688");
+////        watch.setType("5");
+//        p2.setWatch(watch2);
+//        p2.setTotal(watch2.getPrice());
+//        p2.setDate(LocalDateTime.now());
+//        
+//        persist(p2);
+//    }
+    
     public List<Watches> getAllWatches() {
         List<Watches> watches = new ArrayList();
 

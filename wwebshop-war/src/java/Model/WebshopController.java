@@ -221,8 +221,7 @@ public class WebshopController implements Serializable {
         // if (String) value => any username => problem
         //gör en sökning på username, om inget hit, if null -> throw exception?
         //loginUser = personHandler.findByUsername(loginUsername);
-        personHandler.fillDBUsers();
-        personHandler.fillDBProducts();
+        personHandler.fillDB();
 
         if (personHandler.findByUsername(createUsername).getUsername() != null) { // name taken
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -236,9 +235,7 @@ public class WebshopController implements Serializable {
 
     public String loginHandler() {
 
-        personHandler.fillDBUsers();
-        personHandler.fillDBProducts();
-        personHandler.fillDBPurchases();
+        personHandler.fillDB();
 
         loginUser = personHandler.findByUsername(loginUsername);
         if (loginUser.getUsername() == null) {
@@ -263,6 +260,7 @@ public class WebshopController implements Serializable {
         if (user.getTypeOfUser().equals("admin")) {
             purchases = personHandler.getAllPurchases();
             purchases.forEach(e -> System.out.print(e.getPerson()));
+            users = personHandler.getAllUsers();
             return "adminpage.xhtml";
         }
         else if(user.getTypeOfUser().equals("premium")) {
