@@ -241,6 +241,7 @@ public class WebshopController implements Serializable {
         }
         else{
             watches = personHandler.getAllWatches();
+	    searchResult = personHandler.getAllWatches();
             return "webshopPage.xhtml";
         }
     }
