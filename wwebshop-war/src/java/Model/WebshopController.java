@@ -32,6 +32,8 @@ public class WebshopController implements Serializable {
     private PersonHandler personHandler;
 
     private People loginUser;
+    private List<People> users;
+    private People user;
 
     private String loginUsername;
     private String loginPassword;
@@ -134,9 +136,25 @@ public class WebshopController implements Serializable {
     public List<Watches> getShoppingCart() {
         return shoppingCart;
     }
-
+    
     public void setShoppingCart(List<Watches> shoppingCart) {
         this.shoppingCart = shoppingCart;
+    }
+
+    public List<People> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<People> users) {
+        this.users = users;
+    }
+
+    public People getUser() {
+        return user;
+    }
+
+    public void setUser(People user) {
+        this.user = user;
     }
 
     public double getTotalPrice() {
@@ -205,6 +223,7 @@ public class WebshopController implements Serializable {
 
     public String loginNavigation(People user) {
         if (user.getTypeOfUser().equals("admin")){
+            users = personHandler.getAllUsers();
             return "adminpage.xhtml";
         }
         else {
@@ -243,6 +262,8 @@ public class WebshopController implements Serializable {
 //            c.persist(order);
 //        }
 //    }
+    
+    
     
     public void addToCart() {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,watch.getName(),null);
