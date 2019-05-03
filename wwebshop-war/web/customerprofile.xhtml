@@ -16,13 +16,13 @@
                     rendered="true"
                     height="200" 
                     width="240"
-                />
+                    />
                 <div id="logoutContainer">
                     <a 
                         class="logout"
                         href="index.xhtml"
                         id="f3"
-                        
+
                         >Log Out</a>
                 </div>
                 <div id="header">
@@ -31,15 +31,15 @@
                 <div id="content">
                     <ui:repeat value="#{webshopController.purchases}" var="purchase">
                         <div id="purchaseDiv" style="padding: 10px; width: 100%; border: solid grey 2px">
-                        <h:outputText value="Date: #{purchase.date}" class="purchaseDate"></h:outputText> <br/>
-                        <h:outputText value="Buyer ID: #{purchase.person.id}" class="purchasePerson"></h:outputText> <br/>
-                        <h:outputText value="Watch: #{purchase.watch.name}" class="purchaseWatch"></h:outputText> <br/>
-                        <h:outputText value="Total: #{purchase.total}" class="purchaseTotal"></h:outputText> <br/>
+                            <h:outputText value="Date: #{purchase.date}" class="purchaseDate"></h:outputText> <br/>
+                            <h:outputText value="Buyer ID: #{purchase.person.id}" class="purchasePerson"></h:outputText> <br/>
+                            <h:outputText value="Watch: #{purchase.watch.name}" class="purchaseWatch"></h:outputText> <br/>
+                            <h:outputText value="Total: #{purchase.total}" class="purchaseTotal"></h:outputText> <br/>
                         </div>
                     </ui:repeat>
-                    
+
                 </div>
-            
+
             </div>
         </div>
     </h:body>
