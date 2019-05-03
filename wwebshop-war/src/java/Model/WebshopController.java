@@ -198,21 +198,38 @@ public class WebshopController implements Serializable {
                 return "index.xhtml";
             }
             else { //password korrekt - inloggning perfekt
+               
                 return loginNavigation(loginUser);//"adminpage.xhtml";
             }
         }
     }
-
+    public void checkUserStatus(){
+        if(loginUser.getTypeOfUser()!="admin"){
+         if(personHandler.getTotalPurchaseSum(loginUser) <500000 ){
+                loginUser.setTypeOfUser("normal");
+            }else{
+                   loginUser.setTypeOfUser("premium"); 
+                   getPremiumPrices();
+                   personHandler.updateUser(loginUser);
+                }
+        }
+    }
+    public void getPremiumPrices(){
+        watches.forEach((w) -> {
+                w.setPrice(w.getPrice()*0.9);
+            });
+    }
+    
     public String loginNavigation(People user) {
+        
         if (user.getTypeOfUser().equals("admin")){
             return "adminpage.xhtml";
         }
+        
         else if(user.getTypeOfUser().equals("premium")) {
             //user is either normal or premium
             watches = personHandler.getAllWatches();
-            watches.forEach((w) -> {
-                w.setPrice(w.getPrice()*0.9);
-            });
+            getPremiumPrices();
             return "webshopPage.xhtml";
         }
         else{
@@ -277,6 +294,8 @@ public class WebshopController implements Serializable {
 	    Purchase p = new Purchase(loginUser, e, e.getPrice());
 	    personHandler.persist(p);
 	});
+        checkUserStatus();
+        
         clearCart();
 	return "webshopPage.xhtml";
     }

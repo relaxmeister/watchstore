@@ -70,13 +70,16 @@ public class PersonHandler {
     }
 
     public double getTotalPurchaseSum(People user) {
-        Query q = em.createQuery("select sum(p.total) from Purchase p WHERE p.person.id=:user group by p.person.id");
-        q.setParameter("user", user.getId());
-        
-        
-        
-        
-        double a = (double) q.getSingleResult();
+        double a = 0;
+        try {
+
+            Query q = em.createQuery("select sum(p.total) from Purchase p WHERE p.person.id=:user group by p.person.id");
+            q.setParameter("user", user.getId());
+            a = (double) q.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return a;
     }
 
@@ -193,12 +196,12 @@ public class PersonHandler {
     }
 
     public void updateUser(People loginUser) {
-        Query q = em.createNamedQuery("select p from People p where p.username = :username ");
-        q.setParameter("username", loginUser.getUsername());
+        Query q = em.createQuery("select p from People p where p.id = :userid ");
+        q.setParameter("userid", loginUser.getId());
+        
         People p = (People) q.getSingleResult();
         p.setTypeOfUser(loginUser.getTypeOfUser());
         em.merge(p);
-
 
     }
 }
