@@ -69,17 +69,13 @@ public class WebshopController implements Serializable {
     }
     
 
-    public void search(AjaxBehaviorEvent e) {
+    public void search() {
 	searchResult = new ArrayList<>();
 	watches.forEach((Watches w) -> {
 	    if(w.getName().toLowerCase().contains(searchString.toLowerCase())){
 		searchResult.add(w);
 	    }
 	});
-    }
-    
-    public void clearSearch(AjaxBehaviorEvent e){
-	searchResult.clear();
     }
 
     public List<Watches> getSearchResult() {

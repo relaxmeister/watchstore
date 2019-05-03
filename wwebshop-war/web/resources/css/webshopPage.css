@@ -49,18 +49,30 @@ and open the template in the editor.
     justify-content: center;
     align-items: center;
     border: 1px solid black;
+    border-bottom: none;
     width: 100%;
 }
 
 #searchBar {
     width: 100%;
-    border: 1px solid black;
     display: flex;
+    border: 1px solid black;
 }
 
-#search {
+.search {
     width: 100%;
+    margin: 0%;
+    border: none;
 }
+
+.searchButton {
+    background-color: black;
+    color: white;
+    border: black solid 1px;
+    width: 60px;
+    height: 20px;
+}
+
 #content {
     display: flex;
     flex-direction: row;
