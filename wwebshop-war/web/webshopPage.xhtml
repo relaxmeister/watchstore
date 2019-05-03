@@ -48,23 +48,12 @@
                            pt:placeholder="Sök produkter"
                            value="#{webshopController.searchString}"
 			   onkeypress="if (event.keyCode == 13) { onchange(); return false; }">
-			   <f:ajax event="change" listener="#{webshopController.search}" render="searchResult"/>
-			   <f:ajax event="blur" listener="#{webshopController.clearSearch}" render="searchResult"/>
+			   <f:ajax event="change" listener="#{webshopController.search}" render="content"/>
                        </h:inputText>
-
-			<h:panelGroup id="searchResult">
-			    <ui:repeat value="#{webshopController.searchResult}" var="watch">
-				<br/>
-				<h:commandLink action="#{webshopController.takeMeToProductInfo()}">
-				    <h:outputText value="#{watch.name}"/>
-				    <f:setPropertyActionListener target="#{webshopController.watch}" value="#{watch}"/>
-				</h:commandLink>
-			    </ui:repeat>
-			</h:panelGroup>
                    </h:form>
                 </div>
                 <h:form id="content">
-                    <ui:repeat value="#{webshopController.watches}" var="watch">
+                    <ui:repeat value="#{webshopController.searchResult}" var="watch">
                         <div class="product">
                             <h:commandLink action="#{webshopController.takeMeToProductInfo()}">
                                 <h:graphicImage name="#{watch.image}.jpg" 
