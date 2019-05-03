@@ -7,10 +7,12 @@ package Model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 /**
@@ -24,9 +26,12 @@ public class Purchase implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
     private People person;
-    @OneToOne
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "watch_id", referencedColumnName = "id")
     private Watches watch;
     private double total;
     private LocalDateTime purchaseDate;
@@ -107,6 +112,10 @@ public class Purchase implements Serializable {
     @Override
     public String toString() {
 	return "Model.Purchase[ id=" + id + " ]";
+    }
+    
+    public String getInfo(){
+        return "Date: " + purchaseDate.toString() + " Buyer: " + person.getId().toString() + " Watch: " + watch.getName() + total;
     }
     
 }

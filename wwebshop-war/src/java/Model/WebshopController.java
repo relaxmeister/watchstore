@@ -37,14 +37,20 @@ public class WebshopController implements Serializable {
     private String loginPassword;
     private String createUsername;
     private String createPassword;
-    
+
     //watches
     private List<Watches> watches;
     private Watches watch;
     
     private List<Watches> searchResult;
     private String searchString;
-    
+
+    //purchases
+    private List<Purchase> purchases;
+    private List<Purchase> selectedPurchases;
+
+    private People adminSelectedLogin;
+
     private List<Watches> shoppingCart = new ArrayList<>();
     private double totalPrice = 0;
     //kanske ett watch-obj för att bli till vid ett klick? 
@@ -78,8 +84,28 @@ public class WebshopController implements Serializable {
 	return searchResult;
     }
 
-    public void setSearchResult(List<Watches> searchResult) {
-	this.searchResult = searchResult;
+    public List<Purchase> getSelectedPurchases() {
+        return selectedPurchases;
+    }
+
+    public void setSelectedPurchases(List<Purchase> selectedPurchases) {
+        this.selectedPurchases = selectedPurchases;
+    }
+
+    public People getAdminSelectedLogin() {
+        return adminSelectedLogin;
+    }
+
+    public void setAdminSelectedLogin(People adminSelectedLogin) {
+        this.adminSelectedLogin = adminSelectedLogin;
+        
+        selectedPurchases = new ArrayList<>();
+        
+        for (Purchase purchase : purchases){
+            if(purchase.getId() == adminSelectedLogin.getId()){
+                selectedPurchases.add(purchase);
+            }
+        }
     }
 
     public String getSearchString() {
@@ -130,6 +156,14 @@ public class WebshopController implements Serializable {
         this.watches = watches;
     }
 
+    public List<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
+    }
+
     public Watches getWatch() {
         return watch;
     }
@@ -154,17 +188,15 @@ public class WebshopController implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    
     public void initUsers() {
         //kicka igång entity-users
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ready User Set Go", null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
         //om det är av intresse av life cycle
         //personHandler.fillDBUsers();
-        
+
     }
 
-    
     public String createAccountHandler() {
         //is usernametakenvalidator
         //fetch all usernames
@@ -173,7 +205,7 @@ public class WebshopController implements Serializable {
         //loginUser = personHandler.findByUsername(loginUsername);
         personHandler.fillDBUsers();
         personHandler.fillDBProducts();
-        
+
         if (personHandler.findByUsername(createUsername).getUsername() != null) { // name taken
             FacesContext facesContext = FacesContext.getCurrentInstance();
             FacesMessage facesMessage = new FacesMessage("Username already taken"); //
@@ -183,35 +215,36 @@ public class WebshopController implements Serializable {
         personHandler.createAccount(createUsername, createPassword);
         return "index"; //username fine and unique, account successfully created
     }
-    
+
     public String loginHandler() {
 
         personHandler.fillDBUsers();
         personHandler.fillDBProducts();
-        
+        personHandler.fillDBPurchases();
+
         loginUser = personHandler.findByUsername(loginUsername);
         if (loginUser.getUsername() == null) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             FacesMessage facesMessage = new FacesMessage("Incorrect username or password"); //
             facesContext.addMessage("f1:loginUsername", facesMessage);
             return "index.xhtml";
-        } 
-        else //if (loginUser.getUsername() != null) {
+        } else //if (loginUser.getUsername() != null) {
         {
             if (!loginUser.getPassword().equals(loginPassword)) {
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 FacesMessage facesMessage = new FacesMessage("Incorrect password"); //
                 facesContext.addMessage("f1:loginPassword", facesMessage);
                 return "index.xhtml";
-            }
-            else { //password korrekt - inloggning perfekt
+            } else { //password korrekt - inloggning perfekt
                 return loginNavigation(loginUser);//"adminpage.xhtml";
             }
         }
     }
 
     public String loginNavigation(People user) {
-        if (user.getTypeOfUser().equals("admin")){
+        if (user.getTypeOfUser().equals("admin")) {
+            purchases = personHandler.getAllPurchases();
+            purchases.forEach(e -> System.out.print(e.getPerson()));
             return "adminpage.xhtml";
         }
         else if(user.getTypeOfUser().equals("premium")) {
@@ -227,19 +260,20 @@ public class WebshopController implements Serializable {
             return "webshopPage.xhtml";
         }
     }
-    
+
     //en metod som skickar värdet av produkt-namnet och får tillbaka objektet som adderas till shopcart-listan
     //en metod som tar emot en watch och skickar vidare till productinfo som visar upp objektet
     public String takeMeToProductInfo() {
-        
+
         return "productInfo";
     }
+
     //hämtar carten från cartBean och updaterar i denna klass för view
-    public void updateCart(){
+    public void updateCart() {
         this.shoppingCart = cartBean.getCart();
     }
-    
-    public void deleteFromCart(){
+
+    public void deleteFromCart() {
         cartBean.deleteFromCart(watch);
         updateCart();
     }
@@ -250,7 +284,7 @@ public class WebshopController implements Serializable {
         cartBean.clearCart();
         updateCart();
     }
-     
+
     //Detta är för när vi ska göra om cart till beställning, lika bra att vi gör tillsammans när models ser är fixade
 //    public void checkOutCart(){
 //        for(Watch w : cart){
@@ -258,33 +292,33 @@ public class WebshopController implements Serializable {
 //            c.persist(order);
 //        }
 //    }
-    
     public void addToCart() {
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,watch.getName(),null);
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, watch.getName(), null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
         //System.out.println(watch.getName());
         cartBean.addToCart(watch);
         updateCart();
         countTotalPrice();
     }
-    
+
     public void countTotalPrice() {
-	totalPrice = 0;
+        totalPrice = 0;
         shoppingCart.forEach(e -> totalPrice += e.getPrice());
     }
     //en metod som räknar ut totala kostnaden för shopcart, körs i samband med klickmetod ovan
-    
-    public void removeFromCart(){
-	shoppingCart.remove(watch);
-	countTotalPrice();
+
+    public void removeFromCart() {
+        shoppingCart.remove(watch);
+        countTotalPrice();
     }
-    
-    public String confirmOrder(){
-	shoppingCart.forEach((Watches e) -> {
-	    Purchase p = new Purchase(loginUser, e, e.getPrice());
-	    personHandler.persist(p);
-	});
+
+    public String confirmOrder() {
+        shoppingCart.forEach((Watches e) -> {
+            Purchase p = new Purchase(loginUser, e, e.getPrice());
+            personHandler.persist(p);
+        });
         clearCart();
-	return "webshopPage.xhtml";
+        return "webshopPage.xhtml";
     }
+
 }
