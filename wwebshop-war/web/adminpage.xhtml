@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -15,27 +17,56 @@
                     rendered="true"
                     height="200" 
                     width="240"
-                />
+                    />
                 <div id="logoutContainer">
                     <a 
                         class="logout"
                         href="index.xhtml"
                         id="f3"
-                        
+
                         >Log Out</a>
                 </div>
                 <div id="header">
                     <h1>Customers</h1>
                 </div>
-                <div id="content">
-                    <div class="customer" onclick="location.href='customerProfile.xhtml';" style="cursor: pointer;">
-                        <p>Luke Perry, 13yo, good guy</p>
-                    </div>
-                    <div class="customer" onclick="location.href='customerProfile.xhtml';" style="cursor: pointer;">
-                        <p>Morris the cat, 13yo, good cat</p>
-                    </div>
-                </div>
-            
+                <h:form id="content">
+                    <h:dataTable
+                        value="#{webshopController.users}" var="user"
+                        styleClass="user-table"
+                        headerClass="user-table-header"
+                        rowClasses="user-table-odd-row, user-table-even-row"
+                        >
+
+                        <h:column>
+                            <f:facet name="header">Id</f:facet>
+                            <h:commandLink action="customerprofile" class="linker">
+                                <div class="hej" style="text-decoration: none">
+                                    #{user.id}
+                                </div>
+                                <f:setPropertyActionListener target="#{webshopController.user}" value="#{user}" />
+                            </h:commandLink>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Username</f:facet>
+                            <h:commandLink action="#{webshopController.personClicked()}" class="linker">
+                                <div>
+                                    #{user.username}
+                                </div>
+                                <f:setPropertyActionListener target="#{webshopController.user}" value="#{user}" />
+                            </h:commandLink>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Type of User</f:facet>
+                            <h:commandLink action="#{webshopController.personClicked()}" class="linker">
+                                <div>
+                                    #{user.typeOfUser}
+                                </div>
+                                <f:setPropertyActionListener target="#{webshopController.user}" value="#{user}" />
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+
             </div>
         </div>
     </h:body>
