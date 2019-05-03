@@ -220,7 +220,7 @@ public class WebshopController implements Serializable {
 
         personHandler.fillDBUsers();
         personHandler.fillDBProducts();
-        personHandler.fillDBPurchases();
+        //personHandler.fillDBPurchases();
 
         loginUser = personHandler.findByUsername(loginUsername);
         if (loginUser.getUsername() == null) {
