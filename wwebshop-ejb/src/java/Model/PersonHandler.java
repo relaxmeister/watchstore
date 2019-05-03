@@ -68,7 +68,21 @@ public class PersonHandler {
 
         // em.close();app-servern stänger resurserna, så vi ska inte stänga dem
     }
-    
+
+    public double getTotalPurchaseSum(People user) {
+        double a = 0;
+        try {
+
+            Query q = em.createQuery("select sum(p.total) from Purchase p WHERE p.person.id=:user group by p.person.id");
+            q.setParameter("user", user.getId());
+            a = (double) q.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return a;
+    }
+
     public void fillDBProducts() {
         //containern hanterar sina egna transaktioner
         //vi har ju transaction-type="JTA" i vår persistence.xml
@@ -103,10 +117,6 @@ public class PersonHandler {
             watch.setFunktioner("Kronograf (regatta)");
             watch.setÖvrigt("Kronometer (COSC-certifierad), skruvkrona");
             persist(watch);
-            
-            
-            
-            
 
             watch = new Watches();
             watch.setName("Cartier Ballon Blue");
@@ -116,7 +126,6 @@ public class PersonHandler {
             watch.setType("5");
             persist(watch);
 
-
             watch = new Watches();
             watch.setName("Patek Philippe Aquanaut");
             watch.setPrice(461695);
@@ -124,7 +133,6 @@ public class PersonHandler {
             watch.setModel("116688");
             watch.setType("5");
             persist(watch);
-
 
             watch = new Watches();
             watch.setName("Omega Constellation Day-Date");
@@ -141,10 +149,10 @@ public class PersonHandler {
 
         // em.close();app-servern stänger resurserna, så vi ska inte stänga dem
     }
-    
+
     public List<Watches> getAllWatches() {
         List<Watches> watches = new ArrayList();
-        
+
         try {
             Query q = em
                     .createQuery("SELECT o FROM Watches o");
@@ -184,6 +192,16 @@ public class PersonHandler {
     }
 
     public void placeholder() {
+
+    }
+
+    public void updateUser(People loginUser) {
+        Query q = em.createQuery("select p from People p where p.id = :userid ");
+        q.setParameter("userid", loginUser.getId());
+        
+        People p = (People) q.getSingleResult();
+        p.setTypeOfUser(loginUser.getTypeOfUser());
+        em.merge(p);
 
     }
 }
