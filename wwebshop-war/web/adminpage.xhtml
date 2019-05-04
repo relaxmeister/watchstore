@@ -19,12 +19,12 @@
                     width="240"
                     />
                 <div id="logoutContainer">
-                    <a 
-                        class="logout"
-                        href="index.xhtml"
-                        id="f3"
-
-                        >Log Out</a>
+                    <div class="leftNavContainer">
+                        <a class="navtext" href="adminpage.xhtml">Kunder</a>
+                    </div>
+                    <div class="rightNavContainer">
+                    <a class="navtext" href="index.xhtml">Log Out</a>
+                    </div>
                 </div>
                 <div id="header">
                     <h1>Customers</h1>
@@ -40,7 +40,7 @@
                         <h:column>
                             <f:facet name="header">Id</f:facet>
                             <h:commandLink action="customerprofile" class="linker">
-                                <div class="hej" style="text-decoration: none">
+                                <div>
                                     #{user.id}
                                 </div>
                                 <f:setPropertyActionListener target="#{webshopController.user}" value="#{user}" />

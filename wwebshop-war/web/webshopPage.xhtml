@@ -20,37 +20,39 @@
                     width="240"
                     />
                 <div id="logoutContainer">
-                    <a href="checkout.xhtml" id="cart">
-                        <h:graphicImage 
-                            name="shopping-cart.png"
-                            library="images"
-                            rendered="true"
-                            height="18"
-                            width="18"
-                        />
-                    </a>
-                    <a 
-                        class="logout"
-                        href="index.xhtml"
-                        id="f3"
-
-                    >Log Out
-                    </a>
-                    
+                    <div class="leftNavContainer">
+                        <a class="navtext" href="webshopPage.xhtml">Klockor</a>
+                    </div>
+                    <div class="rightNavContainer">
+                        <a href="checkout.xhtml" id="cart">
+                            <h:graphicImage 
+                                name="shopping-cart.png"
+                                library="images"
+                                rendered="true"
+                                height="18"
+                                width="18"                                
+                                />
+                        </a>
+                        <a class="navtext" href="index.xhtml">Log Out</a>
+                    </div>
                 </div>
+                
                 <div id="header">
                     <h1>Products for sale</h1>
                 </div>
                 <div id="searchBar">
                     <h:form>
-                       <h:inputText 
-                           id="search" 
-                           pt:placeholder="Sök produkter"
-                           value="#{webshopController.searchString}"
-			   onkeypress="if (event.keyCode == 13) { onchange(); return false; }">
-			   <f:ajax event="change" listener="#{webshopController.search}" render="content"/>
-                       </h:inputText>
-                   </h:form>
+                        <h:inputText 
+                            id="search" 
+                            pt:placeholder="Sök produkter"
+                            value="#{webshopController.searchString}"
+                            onkeypress="if (event.keyCode == 13) {
+                                        onchange();
+                                        return false;
+                                    }">
+                            <f:ajax event="change" listener="#{webshopController.search}" render="content"/>
+                        </h:inputText>
+                    </h:form>
                 </div>
                 <h:form id="content">
                     <ui:repeat value="#{webshopController.searchResult}" var="watch">
