@@ -70,12 +70,12 @@ and open the template in the editor.
 }
 
 #cart {
-    padding-right:9px;
+    padding-right:3px;
 }
 
 #itemCount{
     margin-bottom: 5px;
-    margin-right: 9px;
+    margin-right: 12px;
 }
 
 #header {
