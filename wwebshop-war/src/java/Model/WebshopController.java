@@ -197,6 +197,10 @@ public class WebshopController implements Serializable {
     public double getTotalPrice() {
         return totalPrice;
     }
+    
+    public String getFormatedTotalPrice(){
+	return String.format("%.2f", totalPrice);
+    }
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;

@@ -54,7 +54,7 @@
                     
                     <div id="totalPrice">
                         <h:outputText value="Total Price: "/>                           
-                        <h:outputText value="#{webshopController.totalPrice}"/>
+                        <h:outputText value="#{webshopController.getFormatedTotalPrice()}"/>
                     </div>
 		    <h:commandButton class="placeOrder" value="Order" action="#{webshopController.confirmOrder()}"></h:commandButton>
                 </h:form>
