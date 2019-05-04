@@ -73,6 +73,11 @@ and open the template in the editor.
     padding-right:9px;
 }
 
+#itemCount{
+    margin-bottom: 5px;
+    margin-right: 9px;
+}
+
 #header {
     display: flex;
     flex-direction: row;
