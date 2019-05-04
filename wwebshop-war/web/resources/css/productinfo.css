@@ -108,6 +108,8 @@ and open the template in the editor.
     width: 100%;
 }
 
+
+
 .productName {
     font-size: 24px;
     display: block;
@@ -135,23 +137,30 @@ and open the template in the editor.
     
     width: 100%;
 }
-.productInfo {
-    border: 1px solid lightgray;
-    width: 100%;
+#productInfo {
+    border: 1px solid grey;
+    width: 94%;
     padding: 10px;
 }
-
+#productInfo div:nth-child(even) {
+    background-color: #f2f2f2;
+}
 .productInfoHeader {
     font-weight: bold;
-    font-size: 16px;
+    display: block;
+    font-size: 18px;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 
 .infoMiniHeadline {
     display: block;
+    font-weight: bold;
+    font-size: 14px;
 }
 
 .infoText {
-    
+    font-size: 14px;
 }
 .addToCart {
     background-color:green;
