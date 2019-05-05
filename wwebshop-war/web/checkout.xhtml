@@ -17,7 +17,7 @@
                     rendered="true"
                     height="200" 
                     width="240"
-                />                
+                    />                
                 <div id="logoutContainer">
                     <div class="leftNavContainer">
                         <a class="navtext" href="webshopPage.xhtml">Klockor</a>
@@ -25,39 +25,53 @@
                         <a class="navtext" href="#">Checkout</a>
                     </div>
                     <div class="rightNavContainer">
-                        
+
                         <a class="navtext" href="index.xhtml">Log Out</a>
                     </div>
                 </div>
                 <div id="header">
-                    <h1>checkout</h1>
+                    <h1>Din varukorg</h1>
                 </div>
-                <h:form id="content">
+                <h:form class="content" style="#{webshopController.shoppingCart.size() == 0 ? 'display:none' : 'display:block'}">
                     <ui:repeat value="#{webshopController.shoppingCart}" var="watch">
-                        <div class="product" value="#{watch.name}" action="productInfo" style="cursor: pointer;"><!--kanske går det direkt-->
-                            <!--lägg till bilder :) och klicket tar dig till productinfo-->
-                            
-                            <h:graphicImage name="#{watch.image}.jpg" 
-                                            library="images" 
-                                            rendered="true"
-                                            width="100%"
-                                            height="240"
-                                            />
-                            <h:outputText value="#{watch.name}" class="productName"/><br />                            
-                            <h:outputText value="#{watch.price}" class="productPrice"/>
+                        <div class="product">
+                            <div class="part1">
+                                <h:graphicImage name="#{watch.image}.jpg" 
+                                                library="images" 
+                                                rendered="true"
+                                                style="#{'object-fit:cover; max-height:100%;'}"
+                                                width="auto"
+                                                />
+                            </div>
+                            <div class="part2">
+                                <h:outputText value="#{watch.name}" class="productName"/> 
+                                <h:outputText value="Artikelnummer: #{watch.model}" class="productModel"/>
+                            </div>
+                            <div class="part3">
+                                <h:outputText value="#{watch.price} kr/st" class="productPrice"/>
+                                <h:inputText 
+                                    style="#{'width: 20px'}"
+                                    />
+                                <h:outputText value="#{watch.price} kr" class="productPrice"/>
+                            </div>
                             <h:commandButton value="Remove" action="#{webshopController.removeFromCart()}">
                                 <f:setPropertyActionListener target="#{webshopController.watch}" value="#{watch}" />
-                            </h:commandButton>
-                            
+                            </h:commandButton>                            
                         </div>
                     </ui:repeat>
-                    
+                    <div class="content" style="#{webshopController.shoppingCart.size() != 0 ? 'display:none' : 'display:block'}">
+                        <p class="emptyCart">Öresavrundning</p>
+                    </div>
                     <div id="totalPrice">
                         <h:outputText value="Total Price: "/>                           
                         <h:outputText value="#{webshopController.getFormatedTotalPrice()}"/>
                     </div>
-		    <h:commandButton class="placeOrder" value="Order" action="#{webshopController.confirmOrder()}"></h:commandButton>
+                    <h:commandButton class="placeOrder" value="Order" action="#{webshopController.confirmOrder()}"></h:commandButton>
                 </h:form>
+
+                <div class="content" style="#{webshopController.shoppingCart.size() != 0 ? 'display:none' : 'display:block'}">
+                    <p class="emptyCart">Varukorgen är tom</p>
+                </div>
             </div>
         </div>
     </h:body>
