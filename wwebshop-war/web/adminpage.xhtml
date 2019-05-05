@@ -39,16 +39,16 @@
 
                         <h:column>
                             <f:facet name="header">Id</f:facet>
-                            <h:commandLink action="customerprofile" class="linker">
+                            <h:commandLink action="#{webshopController.adminSelectedPurchases()}" class="linker">
                                 <div>
                                     #{user.id}
                                 </div>
-                                <f:setPropertyActionListener target="#{webshopController.user}" value="#{user}" />
+                                <f:setPropertyActionListener target="#{webshopController.user}" value="#{user}"/>
                             </h:commandLink>
                         </h:column>
                         <h:column>
                             <f:facet name="header">Username</f:facet>
-                            <h:commandLink action="customerprofile" class="linker">
+                            <h:commandLink action="#{webshopController.adminSelectedPurchases()}" class="linker">
                                 <div>
                                     #{user.username}
                                 </div>
@@ -57,7 +57,7 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Type of User</f:facet>
-                            <h:commandLink action="customerprofile" class="linker">
+                            <h:commandLink action="#{webshopController.adminSelectedPurchases()}" class="linker">
                                 <div>
                                     #{user.typeOfUser}
                                 </div>
