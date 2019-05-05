@@ -43,7 +43,7 @@ public class WebshopController implements Serializable {
     //watches
     private List<Watches> watches;
     private Watches watch;
-    
+
     private List<Watches> searchResult;
     private String searchString;
 
@@ -51,35 +51,32 @@ public class WebshopController implements Serializable {
     private List<Purchase> purchases;
     private List<Purchase> selectedPurchases;
 
-    private People adminSelectedLogin;
-
     private List<Watches> shoppingCart = new ArrayList<>();
     private double totalPrice = 0;
     //kanske ett watch-obj för att bli till vid ett klick? 
     //som sedan levereras till list för shopcart
-    
+
     //kopplat till navigation
     private boolean isAdmin;
     private boolean isNormie;
-    
-     /**
+
+    /**
      * Creates a new instance of WebshopController
      */
     public WebshopController() {
     }
-    
 
     public void search() {
-	searchResult = new ArrayList<>();
-	watches.forEach((Watches w) -> {
-	    if(w.getName().toLowerCase().contains(searchString.toLowerCase())){
-		searchResult.add(w);
-	    }
-	});
+        searchResult = new ArrayList<>();
+        watches.forEach((Watches w) -> {
+            if (w.getName().toLowerCase().contains(searchString.toLowerCase())) {
+                searchResult.add(w);
+            }
+        });
     }
 
     public List<Watches> getSearchResult() {
-	return searchResult;
+        return searchResult;
     }
 
     public List<Purchase> getSelectedPurchases() {
@@ -90,20 +87,15 @@ public class WebshopController implements Serializable {
         this.selectedPurchases = selectedPurchases;
     }
 
-    public People getAdminSelectedLogin() {
-        return adminSelectedLogin;
-    }
-
-    public void setAdminSelectedLogin(People adminSelectedLogin) {
-        this.adminSelectedLogin = adminSelectedLogin;
-        
+    public String adminSelectedPurchases() {
         selectedPurchases = new ArrayList<>();
         
-        for (Purchase purchase : purchases){
-            if(purchase.getId() == adminSelectedLogin.getId()){
-                selectedPurchases.add(purchase);
+        for (Purchase p : purchases) {
+            if (p.getPerson().equals(user)) {
+                selectedPurchases.add(p);
             }
         }
+        return "customerprofile";
     }
 
     public String getSearchString() {
@@ -173,7 +165,7 @@ public class WebshopController implements Serializable {
     public List<Watches> getShoppingCart() {
         return shoppingCart;
     }
-    
+
     public void setShoppingCart(List<Watches> shoppingCart) {
         this.shoppingCart = shoppingCart;
     }
@@ -192,14 +184,15 @@ public class WebshopController implements Serializable {
 
     public void setUser(People user) {
         this.user = user;
+        
     }
 
     public double getTotalPrice() {
         return totalPrice;
     }
-    
-    public String getFormatedTotalPrice(){
-	return String.format("%.2f", totalPrice);
+
+    public String getFormatedTotalPrice() {
+        return String.format("%.2f", totalPrice);
     }
 
     public void setTotalPrice(double totalPrice) {
@@ -262,18 +255,16 @@ public class WebshopController implements Serializable {
             purchases.forEach(e -> System.out.print(e.getPerson()));
             users = personHandler.getAllUsers();
             return "adminpage.xhtml";
-        }
-        else if(user.getTypeOfUser().equals("premium")) {
+        } else if (user.getTypeOfUser().equals("premium")) {
             //user is either normal or premium
             watches = personHandler.getAllWatches();
             watches.forEach((w) -> {
-                w.setPrice(w.getPrice()*0.9);
+                w.setPrice(w.getPrice() * 0.9);
             });
             return "webshopPage.xhtml";
-        }
-        else{
+        } else {
             watches = personHandler.getAllWatches();
-	    searchResult = personHandler.getAllWatches();
+            searchResult = personHandler.getAllWatches();
             return "webshopPage.xhtml";
         }
     }
@@ -294,9 +285,9 @@ public class WebshopController implements Serializable {
         cartBean.deleteFromCart(watch);
         updateCart();
     }
-    
-    public void clearCart(){
-	totalPrice = 0;
+
+    public void clearCart() {
+        totalPrice = 0;
         this.shoppingCart.clear();
         cartBean.clearCart();
         updateCart();
