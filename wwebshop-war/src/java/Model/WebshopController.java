@@ -72,7 +72,7 @@ public class WebshopController implements Serializable {
             if (w.getName().toLowerCase().contains(searchString.toLowerCase())) {
                 searchResult.add(w);
             }
-        });
+	});
     }
 
     public List<Watches> getSearchResult() {
@@ -261,6 +261,10 @@ public class WebshopController implements Serializable {
             watches.forEach((w) -> {
                 w.setPrice(w.getPrice() * 0.9);
             });
+	    searchResult = personHandler.getAllWatches();
+	    searchResult.forEach(w -> {
+		w.setPrice(w.getPrice() * 0.9);
+	    });
             return "webshopPage.xhtml";
         } else {
             watches = personHandler.getAllWatches();
