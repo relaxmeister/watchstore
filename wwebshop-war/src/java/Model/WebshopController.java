@@ -8,14 +8,13 @@ package Model;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 
 /**
  *
@@ -59,6 +58,15 @@ public class WebshopController implements Serializable {
     //kopplat till navigation
     private boolean isAdmin;
     private boolean isNormie;
+    
+    //För payment.xhtml
+    private String cardType;
+    private String chosenCard;
+    private String cardNumber;
+    private String nameOnCard;
+    private String expirationDate;
+    private String cvc;
+    private String receipt;
 
     /**
      * Creates a new instance of WebshopController
@@ -75,6 +83,73 @@ public class WebshopController implements Serializable {
 	});
     }
 
+    public String getReceipt() {
+	return receipt;
+    }
+    
+    public void setReceipt(){
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	LocalDateTime now = LocalDateTime.now();
+	String date = dtf.format(now);
+	int orderNr = (int) ((Math.random() * 899_999_999) + 100_000_000);
+	receipt = date + "<br/>" +
+		"Ordernr " + orderNr + "<br/>" +
+		nameOnCard + "<br/><br/>" +
+		"Produkter:<br/>";
+	
+	for(Watches w : shoppingCart){
+	    receipt += w.getName() + "<br/>";
+	}
+    }
+
+    public String getCardType() {
+	return cardType;
+    }
+
+    public void setCardType(String cardType) {
+	this.cardType = cardType;
+    }
+
+    public String getChosenCard() {
+	return chosenCard;
+    }
+
+    public void setChosenCard(String chosenCard) {
+	this.chosenCard = chosenCard;
+    }
+
+    public String getCardNumber() {
+	return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+	this.cardNumber = cardNumber;
+    }
+
+    public String getNameOnCard() {
+	return nameOnCard;
+    }
+
+    public void setNameOnCard(String nameOnCard) {
+	this.nameOnCard = nameOnCard;
+    }
+
+    public String getExpirationDate() {
+	return expirationDate;
+    }
+
+    public void setExpirationDate(String expirationDate) {
+	this.expirationDate = expirationDate;
+    }
+
+    public String getCvc() {
+	return cvc;
+    }
+
+    public void setCvc(String cvc) {
+	this.cvc = cvc;
+    }
+
     public List<Watches> getSearchResult() {
         return searchResult;
     }
@@ -85,17 +160,6 @@ public class WebshopController implements Serializable {
 
     public void setSelectedPurchases(List<Purchase> selectedPurchases) {
         this.selectedPurchases = selectedPurchases;
-    }
-
-    public String adminSelectedPurchases() {
-        selectedPurchases = new ArrayList<>();
-        
-        for (Purchase p : purchases) {
-            if (p.getPerson().equals(user)) {
-                selectedPurchases.add(p);
-            }
-        }
-        return "customerprofile";
     }
 
     public String getSearchString() {
@@ -279,6 +343,17 @@ public class WebshopController implements Serializable {
 
         return "productInfo";
     }
+    
+    public String adminSelectedPurchases() {
+        selectedPurchases = new ArrayList<>();
+        
+        for (Purchase p : purchases) {
+            if (p.getPerson().equals(user)) {
+                selectedPurchases.add(p);
+            }
+        }
+        return "customerprofile";
+    }
 
     //hämtar carten från cartBean och updaterar i denna klass för view
     public void updateCart() {
@@ -325,12 +400,14 @@ public class WebshopController implements Serializable {
     }
 
     public String confirmOrder() {
+	setReceipt();
+	System.out.println(receipt);
         shoppingCart.forEach((Watches e) -> {
             Purchase p = new Purchase(loginUser, e, e.getPrice());
             personHandler.persist(p);
         });
         clearCart();
-        return "webshopPage.xhtml";
+        return "receipt.xhtml";
     }
 
 }

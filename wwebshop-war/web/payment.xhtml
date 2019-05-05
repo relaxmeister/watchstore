@@ -6,12 +6,29 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <h:body>
+    <h:body class="body">
 	<h:outputStylesheet name="payment.css" library="css"/>
 	<f:view>
-	    <h:form>
-		<h:outputLabel class="harry" value="Harry Potter!"></h:outputLabel>
-		<h:commandButton value="Confirm" action="#{webshopController.confirmOrder()}"></h:commandButton>
+	    <h:form class="form">
+		<h:outputLabel class="header" value="Betalning"></h:outputLabel><br/><br/>
+		<h:panelGrid id="panel" columns="2">
+		    <h:outputLabel class="info" value="Korttyp "></h:outputLabel>
+		    <h:selectOneMenu value="#{webshopController.cardType}">
+			<f:selectItem itemValue="Visa" itemLabel="Visa"></f:selectItem>
+			<f:selectItem itemValue="MasterCard" itemLabel="MasterCard"></f:selectItem>
+			<f:selectItem itemValue="Maestro" itemLabel="Maestro"></f:selectItem>
+		    </h:selectOneMenu>
+		    <h:outputLabel class="info" value="Kortnummer "></h:outputLabel>
+		    <h:inputText value="#{webshopController.cardNumber}"></h:inputText>
+		    <h:outputLabel class="info" value="Kontoinnehavarens namn "></h:outputLabel>
+		    <h:inputText value="#{webshopController.nameOnCard}"></h:inputText>
+		    <h:outputLabel class="info" value="Giltighetsdatum (MM/ÅÅ) "></h:outputLabel>
+		    <h:inputText class="date" value="#{webshopController.expirationDate}"></h:inputText>
+		    <h:outputLabel class="info" value="CVC "></h:outputLabel>
+		    <h:inputText class="cvc" value="#{webshopController.cvc}"></h:inputText>
+		</h:panelGrid><br/>
+		
+		<h:commandButton class="confirm" value="Confirm" action="#{webshopController.confirmOrder()}"></h:commandButton>
 	    </h:form>
 	</f:view>
     </h:body>

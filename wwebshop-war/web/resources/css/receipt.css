@@ -2,13 +2,8 @@
     background-color: lightgrey;
 }
 
-.header{
-    font-size: 32px;
-    color: white;
-}
-
 .form{
-    width: 30%;
+    width: 20%;
     margin: auto;
     margin-top: 10%;
     padding: 5%;
@@ -16,27 +11,24 @@
     background-color: #3f9687;
 }
 
-.info{
+.header{
+    font-size: 32px;
     color: white;
 }
 
-.date{
-    width: 25%;
+.text{
+    color: white;
 }
 
-.cvc{
-    width: 20%;
-}
-
-.confirm{
-    width: 25%;
+.back{
+    width: 55%;
     padding: 2%;
     background-color: white;
     border: none;
     box-shadow: 2px 2px 2px;
 }
 
-.confirm:hover{
+.back:hover{
     background-color: lightgrey;
     box-shadow: 4px 4px 4px;
 }
