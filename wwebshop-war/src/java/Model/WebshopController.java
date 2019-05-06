@@ -519,5 +519,13 @@ public class WebshopController implements Serializable {
         this.receipt = null;
 
     }
-
+    
+    public String goToProducts(){
+	searchResult.clear();
+	searchString = "";
+	for(Watches w : watches){
+	    searchResult.add(w);
+	}
+	return "webshopPage.xhtml";
+    }
 }
