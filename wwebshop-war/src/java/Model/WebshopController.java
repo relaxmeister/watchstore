@@ -401,6 +401,7 @@ public class WebshopController implements Serializable {
 
     public String confirmOrder() {
 	setReceipt();
+	clearBillingInfo();
 	System.out.println(receipt);
         shoppingCart.forEach((Watches e) -> {
             Purchase p = new Purchase(loginUser, e, e.getPrice());
@@ -408,6 +409,15 @@ public class WebshopController implements Serializable {
         });
         clearCart();
         return "receipt.xhtml";
+    }
+    
+    public void clearBillingInfo(){
+	cardType = "";
+	chosenCard = "";
+	cardNumber = "";
+	nameOnCard = "";
+	expirationDate = "";
+	cvc = "";
     }
 
 }
