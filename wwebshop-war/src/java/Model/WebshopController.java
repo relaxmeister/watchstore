@@ -93,20 +93,20 @@ public class WebshopController implements Serializable {
     public String getReceipt() {
         return receipt;
     }
-    
-    public void setReceipt(){
-	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	LocalDateTime now = LocalDateTime.now();
-	String date = dtf.format(now);
-	int orderNr = (int) ((Math.random() * 899_999_999) + 100_000_000);
-	receipt = "Beställningsdatum: " + date + "<br/>" +
-		"Ordernr: " + orderNr + "<br/>" +
-		"Namn: " + nameOnCard + "<br/><br/>" +
-		"Produkter:<br/>";
-	
-	for(Watches w : shoppingCart){
-	    receipt += w.getName() + "<br/>";
-	}
+
+    public void setReceipt() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String date = dtf.format(now);
+        int orderNr = (int) ((Math.random() * 899_999_999) + 100_000_000);
+        receipt = "Beställningsdatum: " + date + "<br/>"
+                + "Ordernr: " + orderNr + "<br/>"
+                + "Namn: " + nameOnCard + "<br/><br/>"
+                + "Produkter:<br/>";
+
+        for (Watches w : shoppingCart) {
+            receipt += w.getName() + "<br/>";
+        }
     }
 
     public String getCardType() {
@@ -414,11 +414,11 @@ public class WebshopController implements Serializable {
         moms = totalPrice * 0.2;
         totalPrice += 0.49;
         DecimalFormat df = new DecimalFormat("#.##");
-        
+
         BigDecimal bigDecimal = new BigDecimal(totalPrice);
         BigDecimal roundedWithScale = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP);
         //Debugga detta och kolla att "roundedWithScale" ger .49 /DS
-        
+
         int priceWithoutDec = (int) totalPrice;
         double withoutDec = priceWithoutDec;
         BigDecimal testUtanDec = new BigDecimal(priceWithoutDec);
@@ -426,9 +426,8 @@ public class WebshopController implements Serializable {
         testMedDec = testMedDec.setScale(2, RoundingMode.CEILING);
         if ((totalPrice % 1) != 0) //det krävs att det inte är jämnt för att komma in
         {
-           rounding = testMedDec.subtract(testUtanDec);
-            
-            
+            rounding = testMedDec.subtract(testUtanDec);
+
 //            if (rounding.compareTo(new BigDecimal(0.5)))
 //            {
 //                totalPrice = Math.round(totalPrice);
@@ -450,8 +449,8 @@ public class WebshopController implements Serializable {
     }
 
     public String confirmOrder() {
-	setReceipt();
-	clearBillingInfo();
+        setReceipt();
+        clearBillingInfo();
         shoppingCart.forEach((Watches e) -> {
             Purchase p = new Purchase(loginUser, e, e.getPrice());
             personHandler.persist(p);
@@ -460,14 +459,14 @@ public class WebshopController implements Serializable {
         clearCart();
         return "receipt.xhtml";
     }
-    
-    public void clearBillingInfo(){
-	cardType = "";
-	chosenCard = "";
-	cardNumber = "";
-	nameOnCard = "";
-	expirationDate = "";
-	cvc = "";
+
+    public void clearBillingInfo() {
+        cardType = "";
+        chosenCard = "";
+        cardNumber = "";
+        nameOnCard = "";
+        expirationDate = "";
+        cvc = "";
     }
 
     public void checkUserStatus() {
@@ -475,10 +474,10 @@ public class WebshopController implements Serializable {
             if (personHandler.getTotalPurchaseSum(loginUser) > 500000) {
                 loginUser.setTypeOfUser("premium");
                 getPremiumPrices(watches);
-                
+
                 getPremiumPrices(this.searchResult);
                 personHandler.updateUser(loginUser);
-            } 
+            }
         }
     }
 
@@ -488,11 +487,13 @@ public class WebshopController implements Serializable {
         });
 
     }
-    public String logOut(){
+
+    public String logOut() {
         clearForm();
         return "index.xhtml";
     }
-    public void clearForm(){
+
+    public void clearForm() {
         this.loginUser = null;
         this.users = null;
         this.user = null;
@@ -502,6 +503,7 @@ public class WebshopController implements Serializable {
         this.createPassword = null;
         this.watches = null;
         this.watch = null;
+        cartBean.clearCart();
         this.searchResult = null;
         this.searchString = null;
         this.purchases = null;
@@ -515,10 +517,7 @@ public class WebshopController implements Serializable {
         this.expirationDate = null;
         this.cvc = null;
         this.receipt = null;
-        
-    }
 
-    
-    
+    }
 
 }
