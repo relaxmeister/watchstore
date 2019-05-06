@@ -93,20 +93,20 @@ public class WebshopController implements Serializable {
     public String getReceipt() {
         return receipt;
     }
-
-    public void setReceipt() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime now = LocalDateTime.now();
-        String date = dtf.format(now);
-        int orderNr = (int) ((Math.random() * 899_999_999) + 100_000_000);
-        receipt = date + "<br/>"
-                + "Ordernr " + orderNr + "<br/>"
-                + nameOnCard + "<br/><br/>"
-                + "Produkter:<br/>";
-
-        for (Watches w : shoppingCart) {
-            receipt += w.getName() + "<br/>";
-        }
+    
+    public void setReceipt(){
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	LocalDateTime now = LocalDateTime.now();
+	String date = dtf.format(now);
+	int orderNr = (int) ((Math.random() * 899_999_999) + 100_000_000);
+	receipt = "Beställningsdatum: " + date + "<br/>" +
+		"Ordernr: " + orderNr + "<br/>" +
+		"Namn: " + nameOnCard + "<br/><br/>" +
+		"Produkter:<br/>";
+	
+	for(Watches w : shoppingCart){
+	    receipt += w.getName() + "<br/>";
+	}
     }
 
     public String getCardType() {
@@ -450,8 +450,9 @@ public class WebshopController implements Serializable {
     }
 
     public String confirmOrder() {
-        setReceipt();
-        System.out.println(receipt);
+	setReceipt();
+	clearBillingInfo();
+	System.out.println(receipt);
         shoppingCart.forEach((Watches e) -> {
             Purchase p = new Purchase(loginUser, e, e.getPrice());
             personHandler.persist(p);
@@ -459,6 +460,15 @@ public class WebshopController implements Serializable {
         checkUserStatus();
         clearCart();
         return "receipt.xhtml";
+    }
+    
+    public void clearBillingInfo(){
+	cardType = "";
+	chosenCard = "";
+	cardNumber = "";
+	nameOnCard = "";
+	expirationDate = "";
+	cvc = "";
     }
 
     public void checkUserStatus() {
