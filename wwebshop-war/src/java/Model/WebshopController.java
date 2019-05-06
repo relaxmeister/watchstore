@@ -212,6 +212,7 @@ public class WebshopController implements Serializable {
                    getPremiumPrices();
                    personHandler.updateUser(loginUser);
                 }
+         
         }
     }
     public void getPremiumPrices(){
@@ -298,6 +299,7 @@ public class WebshopController implements Serializable {
         
         clearCart();
 	return "webshopPage.xhtml";
+        
     }
     
     /**
