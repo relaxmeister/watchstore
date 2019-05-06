@@ -38,34 +38,55 @@
                             <div class="part1">
                                 <h:graphicImage name="#{watch.image}.jpg" 
                                                 library="images" 
-                                                rendered="true"
-                                                style="#{'object-fit:cover; max-height:100%;'}"
-                                                width="auto"
+                                                rendered="true"                                               
                                                 />
                             </div>
                             <div class="part2">
                                 <h:outputText value="#{watch.name}" class="productName"/> 
                                 <h:outputText value="Artikelnummer: #{watch.model}" class="productModel"/>
+                                <div class="part3">
+                                    <h:outputText value="#{watch.price} kr/st" class="productPrice"/>
+                                    <h:inputText 
+                                        value="1"
+                                        style="#{'width: 20px; margin-left:8px; margin-right:8px; font-size:11px;'}"
+                                        />
+                                    <h:outputText value="#{watch.price} kr" class="productPrice"/>
+                                </div>
                             </div>
-                            <div class="part3">
-                                <h:outputText value="#{watch.price} kr/st" class="productPrice"/>
-                                <h:inputText 
-                                    style="#{'width: 20px'}"
-                                    />
-                                <h:outputText value="#{watch.price} kr" class="productPrice"/>
+                            <div class="part4">
+                                <h:commandLink action="#{webshopController.removeFromCart()}">
+                                    <h:graphicImage 
+                                        name="images/trash.png"
+
+                                        />
+                                    <f:setPropertyActionListener target="#{webshopController.watch}" value="#{watch}" />
+                                </h:commandLink>   
                             </div>
-                            <h:commandButton value="Remove" action="#{webshopController.removeFromCart()}">
-                                <f:setPropertyActionListener target="#{webshopController.watch}" value="#{watch}" />
-                            </h:commandButton>                            
                         </div>
                     </ui:repeat>
-                    <div class="content" style="#{webshopController.shoppingCart.size() != 0 ? 'display:none' : 'display:block'}">
-                        <p class="emptyCart">Öresavrundning</p>
+                    <div class="rounding" style="#{false ? 'display:none' : 'display:flex'}">
+                        <div class="roundPart1">
+                            <h:outputText class="moms" value="Öresavrundning"/>
+                        </div>
+                        <div class="roundPart2">
+                            <h:outputText class="moms" value="#{webshopController.rounding}"/>
+                        </div>
                     </div>
                     <div id="totalPrice">
-                        <h:outputText value="Total Price: "/>                           
-                        <h:outputText value="#{webshopController.getFormatedTotalPrice()}"/>
+                        <div class="wrapperPart1">
+                            <div>
+                                <h:outputText class="moms" value="Moms ingår med "/>
+                                <h:outputText class="momsSvar" value="#{webshopController.moms} kr"/>
+                            </div>
+                            <div>
+                                <h:outputText class="totalHeadline" value="Totalsumma"/>  
+                            </div>
+                        </div>
+                        <div class="wrapperPart2">
+                            <h:outputText class="totalPrice" value="#{webshopController.getFormatedTotalPrice()} kr"/>
+                        </div>
                     </div>
+
                     <h:commandButton class="placeOrder" value="Order" action="#{webshopController.confirmOrder()}"></h:commandButton>
                 </h:form>
 

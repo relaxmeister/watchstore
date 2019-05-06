@@ -77,31 +77,20 @@ and open the template in the editor.
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 500px;
+    width: 100%;
     margin-right: 0%;
     margin-left: 0%;
-}
-
-.emptyCart {
-    display: flex;
-    font-weight: bold;
-    justify-content: center;
-    align-text: center;
-    flex: 1;
-    
-    
 }
 
 .product {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    border: 1px solid black;
+    border-bottom: 2px lightgoldenrodyellow solid;
     width: 100%;
     height: 100px;
-    
-    
+    margin-top:1%;
 }
 .productName {
     font-weight: bold;
@@ -123,25 +112,54 @@ and open the template in the editor.
     width: auto;
     height: 100%;
     flex-direction: column;
-    justify-content: center;
-    align-content: center;
+    justify-content: flex-start;
+    align-content: flex-start;
+    
+    width: 25%;
 }
-
+/*object-fit:cover; max-height:100%; width="auto"*/
+.product .part1 img {
+    max-height: 90%;
+    max-width: 100%;
+    object-fit: contain;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
 .product .part2 {
     display: flex;
-    border: 1px solid black;
+    
     flex-direction: column;
-    justify-content: center;
-    align-content: center;
+    justify-content:flex-start;
+    align-content: flex-start;
+    width: 58%;
 }
 
 .product .part3 {
     display: flex;
-    border: 1px solid black;
+    
     flex-direction: row;
     justify-content: center;
-    align-content: center;
+    align-items: center;
 }
+.product .part4 {
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+    
+    width: 17%;
+    text-decoration: none;
+}
+.product .part4 img {
+    width: 20px;
+    height: 20px;
+}
+.product .part4 a {
+    width: 20px;
+    height: 20px;
+    
+}
+
 #info {
     display: flex;
     flex-direction: row;
@@ -150,13 +168,63 @@ and open the template in the editor.
     
     width: 100%;
 }
-
+.rounding {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width:100%;   
+    margin-top: 1%;
+}
+.roundPart1 {
+    display: flex;
+    justify-content: flex-end;
+    width: 70%;
+}
+.roundPart2 {
+    display: flex;
+    justify-content: flex-start;
+    width: 25%;
+    padding-left: 8px;
+}
 #totalPrice {
     display: flex;
     flex-direction: row;
-    justify-content:space-between;
+    justify-content:flex-start;
     align-items: center;
     width: 100%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+#totalPrice .wrapperPart1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.wrapperPart2 {
+    display: flex;
+    justify-content: flex-start;
+    width: 25%;
+    padding-left: 8px;
+}
+.moms {
+    font-size: 12px;
+    
+    
+}
+.momsSvar {
+    font-size: 12px;
+}
+.totalHeadline {
+    font-size: 12px;
+    font-weight: none;
+}
+
+.totalPrice {
+    font-size: 14px;
+    font-weight: bolder;
 }
 
 .placeOrder {
