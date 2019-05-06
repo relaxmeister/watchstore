@@ -408,15 +408,14 @@ public class WebshopController implements Serializable {
     }
 
     public void checkUserStatus() {
-        if (!"admin".equals(loginUser.getTypeOfUser())) {
-            if (personHandler.getTotalPurchaseSum(loginUser) < 500000) {
-                loginUser.setTypeOfUser("normal");
-            } else {
+        if ("normal".equals(loginUser.getTypeOfUser())) {
+            if (personHandler.getTotalPurchaseSum(loginUser) > 500000) {
                 loginUser.setTypeOfUser("premium");
                 getPremiumPrices(watches);
+                
                 getPremiumPrices(this.searchResult);
                 personHandler.updateUser(loginUser);
-            }
+            } 
         }
     }
 
@@ -426,5 +425,37 @@ public class WebshopController implements Serializable {
         });
 
     }
+    public String logOut(){
+        clearForm();
+        return "index.xhtml";
+    }
+    public void clearForm(){
+        this.loginUser = null;
+        this.users = null;
+        this.user = null;
+        this.loginUsername = null;
+        this.loginPassword = null;
+        this.createUsername = null;
+        this.createPassword = null;
+        this.watches = null;
+        this.watch = null;
+        this.searchResult = null;
+        this.searchString = null;
+        this.purchases = null;
+        this.selectedPurchases = null;
+        this.isAdmin = false;
+        this.isNormie = false;
+        this.cardType = null;
+        this.chosenCard = null;
+        this.cardNumber = null;
+        this.nameOnCard = null;
+        this.expirationDate = null;
+        this.cvc = null;
+        this.receipt = null;
+        
+    }
+
+    
+    
 
 }

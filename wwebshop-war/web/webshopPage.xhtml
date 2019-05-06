@@ -33,25 +33,33 @@
                                 width="18"                                
                                 />
                         </a>
-			<h:outputLabel id="itemCount" value="(#{webshopController.shoppingCart.size()})"></h:outputLabel>
-                        <a class="navtext" href="index.xhtml">Log Out</a>
+                        <h:outputLabel id="itemCount" value="(#{webshopController.shoppingCart.size()})"></h:outputLabel>
+                        
+                            <h:form>
+                                <h:commandLink class="navtext" action = "#{webshopController.logOut()}" value = "Log out">
+                            <f:param name = "pageId" value = "1" />
+                        </h:commandLink>
+                            </h:form>
+                       
+
+                        
                     </div>
                 </div>
-                
+
                 <div id="header">
                     <h1>Products for sale</h1>
                 </div>
-		<h:form id="searchBar">
-		    <h:inputText
-			id="search"
-			class="search" 
-			pt:placeholder="Sök produkter"
-			value="#{webshopController.searchString}">
-		    </h:inputText>
-		     <h:commandButton class="searchButton" value="Search" action="#{webshopController.search()}">
-			 <f:ajax execute="search" render="content"></f:ajax>
-		     </h:commandButton>
-		</h:form>
+                <h:form id="searchBar">
+                    <h:inputText
+                        id="search"
+                        class="search" 
+                        pt:placeholder="Sök produkter"
+                        value="#{webshopController.searchString}">
+                    </h:inputText>
+                    <h:commandButton class="searchButton" value="Search" action="#{webshopController.search()}">
+                        <f:ajax execute="search" render="content"></f:ajax>
+                    </h:commandButton>
+                </h:form>
                 <h:form id="content">
                     <ui:repeat value="#{webshopController.searchResult}" var="watch">
                         <div class="product">
