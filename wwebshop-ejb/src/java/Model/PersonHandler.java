@@ -404,4 +404,27 @@ public class PersonHandler {
         user.setTypeOfUser("normal");
         persist(user);
     }
+
+    public void updateUser(People loginUser) {
+        Query q = em.createQuery("select p from People p where p.id = :userid ");
+        q.setParameter("userid", loginUser.getId());
+        
+        People p = (People) q.getSingleResult();
+        p.setTypeOfUser(loginUser.getTypeOfUser());
+        em.merge(p);
+    }
+
+    public double getTotalPurchaseSum(People user) {
+         double a = 0;
+        try {
+
+            Query q = em.createQuery("select sum(p.total) from Purchase p WHERE p.person.id=:user group by p.person.id");
+            q.setParameter("user", user.getId());
+            a = (double) q.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return a;
+    }
 }

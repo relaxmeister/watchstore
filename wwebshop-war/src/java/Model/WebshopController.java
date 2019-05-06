@@ -58,7 +58,7 @@ public class WebshopController implements Serializable {
     //kopplat till navigation
     private boolean isAdmin;
     private boolean isNormie;
-    
+
     //För payment.xhtml
     private String cardType;
     private String chosenCard;
@@ -80,74 +80,74 @@ public class WebshopController implements Serializable {
             if (w.getName().toLowerCase().contains(searchString.toLowerCase())) {
                 searchResult.add(w);
             }
-	});
+        });
     }
 
     public String getReceipt() {
-	return receipt;
+        return receipt;
     }
-    
-    public void setReceipt(){
-	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	LocalDateTime now = LocalDateTime.now();
-	String date = dtf.format(now);
-	int orderNr = (int) ((Math.random() * 899_999_999) + 100_000_000);
-	receipt = date + "<br/>" +
-		"Ordernr " + orderNr + "<br/>" +
-		nameOnCard + "<br/><br/>" +
-		"Produkter:<br/>";
-	
-	for(Watches w : shoppingCart){
-	    receipt += w.getName() + "<br/>";
-	}
+
+    public void setReceipt() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String date = dtf.format(now);
+        int orderNr = (int) ((Math.random() * 899_999_999) + 100_000_000);
+        receipt = date + "<br/>"
+                + "Ordernr " + orderNr + "<br/>"
+                + nameOnCard + "<br/><br/>"
+                + "Produkter:<br/>";
+
+        for (Watches w : shoppingCart) {
+            receipt += w.getName() + "<br/>";
+        }
     }
 
     public String getCardType() {
-	return cardType;
+        return cardType;
     }
 
     public void setCardType(String cardType) {
-	this.cardType = cardType;
+        this.cardType = cardType;
     }
 
     public String getChosenCard() {
-	return chosenCard;
+        return chosenCard;
     }
 
     public void setChosenCard(String chosenCard) {
-	this.chosenCard = chosenCard;
+        this.chosenCard = chosenCard;
     }
 
     public String getCardNumber() {
-	return cardNumber;
+        return cardNumber;
     }
 
     public void setCardNumber(String cardNumber) {
-	this.cardNumber = cardNumber;
+        this.cardNumber = cardNumber;
     }
 
     public String getNameOnCard() {
-	return nameOnCard;
+        return nameOnCard;
     }
 
     public void setNameOnCard(String nameOnCard) {
-	this.nameOnCard = nameOnCard;
+        this.nameOnCard = nameOnCard;
     }
 
     public String getExpirationDate() {
-	return expirationDate;
+        return expirationDate;
     }
 
     public void setExpirationDate(String expirationDate) {
-	this.expirationDate = expirationDate;
+        this.expirationDate = expirationDate;
     }
 
     public String getCvc() {
-	return cvc;
+        return cvc;
     }
 
     public void setCvc(String cvc) {
-	this.cvc = cvc;
+        this.cvc = cvc;
     }
 
     public List<Watches> getSearchResult() {
@@ -248,7 +248,7 @@ public class WebshopController implements Serializable {
 
     public void setUser(People user) {
         this.user = user;
-        
+
     }
 
     public double getTotalPrice() {
@@ -322,13 +322,9 @@ public class WebshopController implements Serializable {
         } else if (user.getTypeOfUser().equals("premium")) {
             //user is either normal or premium
             watches = personHandler.getAllWatches();
-            watches.forEach((w) -> {
-                w.setPrice(w.getPrice() * 0.9);
-            });
-	    searchResult = personHandler.getAllWatches();
-	    searchResult.forEach(w -> {
-		w.setPrice(w.getPrice() * 0.9);
-	    });
+            getPremiumPrices(watches);
+            searchResult = personHandler.getAllWatches();
+            getPremiumPrices(searchResult);
             return "webshopPage.xhtml";
         } else {
             watches = personHandler.getAllWatches();
@@ -343,10 +339,10 @@ public class WebshopController implements Serializable {
 
         return "productInfo";
     }
-    
+
     public String adminSelectedPurchases() {
         selectedPurchases = new ArrayList<>();
-        
+
         for (Purchase p : purchases) {
             if (p.getPerson().equals(user)) {
                 selectedPurchases.add(p);
@@ -400,14 +396,35 @@ public class WebshopController implements Serializable {
     }
 
     public String confirmOrder() {
-	setReceipt();
-	System.out.println(receipt);
+        setReceipt();
+        System.out.println(receipt);
         shoppingCart.forEach((Watches e) -> {
             Purchase p = new Purchase(loginUser, e, e.getPrice());
             personHandler.persist(p);
         });
+        checkUserStatus();
         clearCart();
         return "receipt.xhtml";
+    }
+
+    public void checkUserStatus() {
+        if (!"admin".equals(loginUser.getTypeOfUser())) {
+            if (personHandler.getTotalPurchaseSum(loginUser) < 500000) {
+                loginUser.setTypeOfUser("normal");
+            } else {
+                loginUser.setTypeOfUser("premium");
+                getPremiumPrices(watches);
+                getPremiumPrices(this.searchResult);
+                personHandler.updateUser(loginUser);
+            }
+        }
+    }
+
+    public void getPremiumPrices(List<Watches> watchList) {
+        watchList.forEach((w) -> {
+            w.setPrice(w.getPrice() * 0.9);
+        });
+
     }
 
 }
