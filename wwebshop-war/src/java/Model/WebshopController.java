@@ -8,6 +8,9 @@ package Model;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +19,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import static jdk.nashorn.internal.objects.NativeMath.round; //använder ev för matte
 
 /**
  *
@@ -53,6 +57,8 @@ public class WebshopController implements Serializable {
 
     private List<Watches> shoppingCart = new ArrayList<>();
     private double totalPrice = 0;
+    private double moms;
+    private BigDecimal rounding;
     //kanske ett watch-obj för att bli till vid ett klick? 
     //som sedan levereras till list för shopcart
 
@@ -199,6 +205,22 @@ public class WebshopController implements Serializable {
         this.totalPrice = totalPrice;
     }
 
+    public double getMoms() {
+        return moms;
+    }
+
+    public void setMoms(double moms) {
+        this.moms = moms;
+    }
+
+    public BigDecimal getRounding() {
+        return rounding;
+    }
+
+    public void setRounding(BigDecimal rounding) {
+        this.rounding = rounding;
+    }
+
     public void initUsers() {
         //kicka igång entity-users
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ready User Set Go", null);
@@ -288,6 +310,7 @@ public class WebshopController implements Serializable {
 
     public void clearCart() {
         totalPrice = 0;
+        moms = 0;
         this.shoppingCart.clear();
         cartBean.clearCart();
         updateCart();
@@ -312,6 +335,36 @@ public class WebshopController implements Serializable {
     public void countTotalPrice() {
         totalPrice = 0;
         shoppingCart.forEach(e -> totalPrice += e.getPrice());
+        moms = totalPrice * 0.2;
+        totalPrice += 0.49;
+        DecimalFormat df = new DecimalFormat("#.##");
+        
+        BigDecimal bigDecimal = new BigDecimal(totalPrice);
+        BigDecimal roundedWithScale = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP);
+        //Debugga detta och kolla att "roundedWithScale" ger .49 /DS
+        
+        int priceWithoutDec = (int) totalPrice;
+        double withoutDec = priceWithoutDec;
+        BigDecimal testUtanDec = new BigDecimal(priceWithoutDec);
+        BigDecimal testMedDec = new BigDecimal(totalPrice);
+        testMedDec = testMedDec.setScale(2, RoundingMode.CEILING);
+        if ((totalPrice % 1) != 0) //det krävs att det inte är jämnt för att komma in
+        {
+           rounding = testMedDec.subtract(testUtanDec);
+            
+            
+//            if (rounding.compareTo(new BigDecimal(0.5)))
+//            {
+//                totalPrice = Math.round(totalPrice);
+//                här blir ett plus tillräckligt, eller?
+//            }
+//            if (rounding < 0.5)
+//            {
+//                totalPrice = Math.round(totalPrice);
+//                
+//                vill bara sätta ett minus framför rounding
+//            }
+        }
     }
     //en metod som räknar ut totala kostnaden för shopcart, körs i samband med klickmetod ovan
 
