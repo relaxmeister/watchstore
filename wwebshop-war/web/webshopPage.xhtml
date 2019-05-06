@@ -36,9 +36,15 @@
                         <h:outputLabel id="itemCount" value="(#{webshopController.shoppingCart.size()})"></h:outputLabel>
                         
                         <h:form>
-                            <h:commandLink class="navtext" action = "#{webshopController.logOut()}" value = "Log out">
+                            <h:commandLink class="navtext"
+					   action = "#{webshopController.logOut()}"
+					   value = "Log out">
                                 <f:param name = "pageId" value = "1" />
                             </h:commandLink>
+			    <h:outputLabel class="navtext"
+					   value=" #{webshopController.loginUsername}"
+					   style="font-weight: bold">
+			    </h:outputLabel>
                         </h:form>
                        
 
