@@ -19,13 +19,33 @@
 			<f:selectItem itemValue="Maestro" itemLabel="Maestro"></f:selectItem>
 		    </h:selectOneMenu>
 		    <h:outputLabel class="info" value="Kortnummer "></h:outputLabel>
-		    <h:inputText value="#{webshopController.cardNumber}"></h:inputText>
+		    <h:inputText id="cardNumber" value="#{webshopController.cardNumber}"
+				 validatorMessage="Kortnummret består av 16 siffror.">
+			<f:validateLength maximum="16" minimum="16"></f:validateLength>
+		    </h:inputText>
+		    <h:outputLabel/>
+		    <h:message for="cardNumber" style="color: firebrick;"></h:message>
 		    <h:outputLabel class="info" value="Kontoinnehavarens namn "></h:outputLabel>
-		    <h:inputText value="#{webshopController.nameOnCard}"></h:inputText>
+		    <h:inputText id="cardName" value="#{webshopController.nameOnCard}"
+				 validatorMessage="Namnet måste bestå av minst 4 och max 30 tecken.">
+			<f:validateLength maximum="30" minimum="4"></f:validateLength>
+		    </h:inputText>
+		    <h:outputLabel/>
+		    <h:message for="cardName" style="color: firebrick"></h:message>
 		    <h:outputLabel class="info" value="Giltighetsdatum (MM/ÅÅ) "></h:outputLabel>
-		    <h:inputText class="date" value="#{webshopController.expirationDate}"></h:inputText>
+		    <h:inputText id="expirationDate" class="date" value="#{webshopController.expirationDate}"
+				 validatorMessage="Datumet ska bestå av 5 tecken">
+			<f:validateLength maximum="5" minimum="5"></f:validateLength>
+		    </h:inputText>
+		    <h:outputLabel/>
+		    <h:message for="expirationDate" style="color: firebrick"></h:message>
 		    <h:outputLabel class="info" value="CVC "></h:outputLabel>
-		    <h:inputText class="cvc" value="#{webshopController.cvc}"></h:inputText>
+		    <h:inputText id="cvcCode" class="cvc" value="#{webshopController.cvc}"
+				 validatorMessage="CVC-koden består av 3 tecken och finns på baksidan av kortet.">
+			<f:validateLength maximum="3" minimum="3"></f:validateLength>
+		    </h:inputText>
+		    <h:outputLabel/>
+		    <h:message for="cvcCode" style="color: firebrick"></h:message>
 		</h:panelGrid><br/>
 		
 		<h:commandButton class="confirm" value="Confirm" action="#{webshopController.confirmOrder()}"></h:commandButton>

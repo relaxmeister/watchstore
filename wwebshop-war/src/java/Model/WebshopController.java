@@ -92,9 +92,9 @@ public class WebshopController implements Serializable {
 	LocalDateTime now = LocalDateTime.now();
 	String date = dtf.format(now);
 	int orderNr = (int) ((Math.random() * 899_999_999) + 100_000_000);
-	receipt = date + "<br/>" +
-		"Ordernr " + orderNr + "<br/>" +
-		nameOnCard + "<br/><br/>" +
+	receipt = "Beställningsdatum: " + date + "<br/>" +
+		"Ordernr: " + orderNr + "<br/>" +
+		"Namn: " + nameOnCard + "<br/><br/>" +
 		"Produkter:<br/>";
 	
 	for(Watches w : shoppingCart){
