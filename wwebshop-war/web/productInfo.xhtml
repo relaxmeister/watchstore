@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
-        
+
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="productinfo.css"  />
@@ -34,8 +34,12 @@
                                 width="18"                                
                                 />
                         </a>
-			<h:outputLabel id="itemCount" value="(#{webshopController.shoppingCart.size()})"></h:outputLabel>
-                        <a class="navtext" href="index.xhtml">Log Out</a>
+                        <h:outputLabel id="itemCount" value="(#{webshopController.shoppingCart.size()})"></h:outputLabel>
+                        <h:form>
+                            <h:commandLink class="navtext" action = "#{webshopController.logOut()}" value = "Log out">
+                                <f:param name = "pageId" value = "1" />
+                            </h:commandLink>
+                        </h:form>
                     </div>
                 </div>
                 <div id="header">
@@ -56,7 +60,7 @@
                         <h:commandButton styleClass="addToCart" value="Add To Cart" action="#{webshopController.addToCart()}" />
                     </div>
                     <div id="productInfo">
-                        
+
                         <h:outputText value="Material o Utförande" class="productInfoHeader" />
 
                         <div style="#{webshopController.watch.model eq '' ? 'display:none' : 'display:block'}">

@@ -23,7 +23,11 @@
                         <a class="navtext" href="adminpage.xhtml">Kunder</a>
                     </div>
                     <div class="rightNavContainer">
-                    <a class="navtext" href="index.xhtml">Log Out</a>
+                        <h:form>
+                            <h:commandLink class="navtext" action = "#{webshopController.logOut()}" value = "Log out">
+                                <f:param name = "pageId" value = "1" />
+                            </h:commandLink>
+                        </h:form>
                     </div>
                 </div>
                 <div id="header">

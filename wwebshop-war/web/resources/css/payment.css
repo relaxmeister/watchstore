@@ -1,0 +1,42 @@
+.body{
+    background-color: lightgrey;
+}
+
+.header{
+    font-size: 32px;
+    color: white;
+}
+
+.form{
+    width: 30%;
+    margin: auto;
+    margin-top: 10%;
+    padding: 5%;
+    border-radius: 20px;
+    background-color: #3f9687;
+}
+
+.info{
+    color: white;
+}
+
+.date{
+    width: 25%;
+}
+
+.cvc{
+    width: 20%;
+}
+
+.confirm{
+    width: 25%;
+    padding: 2%;
+    background-color: white;
+    border: none;
+    box-shadow: 2px 2px 2px;
+}
+
+.confirm:hover{
+    background-color: lightgrey;
+    box-shadow: 4px 4px 4px;
+}
