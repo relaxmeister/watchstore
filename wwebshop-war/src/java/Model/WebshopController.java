@@ -452,7 +452,6 @@ public class WebshopController implements Serializable {
     public String confirmOrder() {
 	setReceipt();
 	clearBillingInfo();
-	System.out.println(receipt);
         shoppingCart.forEach((Watches e) -> {
             Purchase p = new Purchase(loginUser, e, e.getPrice());
             personHandler.persist(p);
