@@ -26,7 +26,11 @@
                     </div>
                     <div class="rightNavContainer">
 
-                        <a class="navtext" href="index.xhtml">Log Out</a>
+                        <h:form>
+                            <h:commandLink class="navtext" action = "#{webshopController.logOut()}" value = "Log out">
+                                <f:param name = "pageId" value = "1" />
+                            </h:commandLink>
+                        </h:form>
                     </div>
                 </div>
                 <div id="header">
@@ -66,7 +70,7 @@
                         <h:outputText value="Total Price: "/>                           
                         <h:outputText value="#{webshopController.getFormatedTotalPrice()}"/>
                     </div>
-		    <h:commandButton class="placeOrder" value="Order" action="payment.xhtml"></h:commandButton>
+                    <h:commandButton class="placeOrder" value="Order" action="payment.xhtml"></h:commandButton>
                 </h:form>
 
                 <div class="content" style="#{webshopController.shoppingCart.size() != 0 ? 'display:none' : 'display:block'}">
