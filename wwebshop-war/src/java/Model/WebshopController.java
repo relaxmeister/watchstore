@@ -402,7 +402,6 @@ public class WebshopController implements Serializable {
     public void addToCart() {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, watch.getName(), null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        //System.out.println(watch.getName());
         cartBean.addToCart(watch);
         updateCart();
         countTotalPrice();
