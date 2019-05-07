@@ -118,7 +118,12 @@ and open the template in the editor.
     width: 25%;
 }
 /*object-fit:cover; max-height:100%; width="auto"*/
-.product .part1 img {
+.product .part1 .imgLink {
+    height: 100%;
+    width: 100%;
+}
+
+.product .part1 .imgLink img {
     max-height: 90%;
     max-width: 100%;
     object-fit: contain;
@@ -132,6 +137,14 @@ and open the template in the editor.
     justify-content:flex-start;
     align-content: flex-start;
     width: 58%;
+}
+.part2 .textLink {
+    text-decoration: none;
+    color: black;
+}
+.part2 .textLink:hover {
+    text-decoration: underline;
+    
 }
 
 .product .part3 {

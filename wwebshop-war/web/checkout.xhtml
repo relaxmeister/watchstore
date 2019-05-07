@@ -47,7 +47,9 @@
                         <div class="product">
                             <div class="part1">
 
-                                <h:commandLink action="#{webshopController.takeMeToProductInfo()}">
+                                <h:commandLink 
+                                    class="imgLink" action="#{webshopController.takeMeToProductInfo()}"
+                                    title="#{watch.name}">
                                     <h:graphicImage name="#{watch.image}.jpg" 
                                                     library="images" 
                                                     rendered="true"                                               
@@ -59,7 +61,12 @@
 
                             </div>
                             <div class="part2">
-                                <h:outputText value="#{watch.name}" class="productName"/> 
+                                <h:commandLink 
+                                    class="textLink" action="#{webshopController.takeMeToProductInfo()}"
+                                    title="#{watch.name}">
+                                    <h:outputText value="#{watch.name}" class="productName"/> 
+                                    <f:setPropertyActionListener target="#{webshopController.watch}" value="#{watch}" />
+                                </h:commandLink>
                                 <h:outputText value="Artikelnummer: #{watch.model}" class="productModel"/>
                                 <div class="part3">
                                     <h:outputText value="#{watch.price} kr/st" class="productPrice"/>
@@ -71,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="part4">
-                                <h:commandLink action="#{webshopController.removeFromCart()}">
+                                <h:commandLink action="#{webshopController.removeFromCart()}" title="Ta bort">
                                     <h:graphicImage 
                                         name="images/trash.png"
 
