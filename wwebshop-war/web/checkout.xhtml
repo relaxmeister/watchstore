@@ -68,7 +68,7 @@
                             </div>
                         </div>
                     </ui:repeat>
-                    <div class="rounding" style="#{false ? 'display:none' : 'display:flex'}">
+                    <div class="rounding" style="#{webshopController.rounding.compareTo(webshopController.rounding2) == 0 ? 'display:none' : 'display:flex'}">
                         <div class="roundPart1">
                             <h:outputText class="moms" value="Öresavrundning"/>
                         </div>
