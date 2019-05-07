@@ -56,9 +56,9 @@
                                         rendered="true"
                                         width="80%"
                                         />
-                        <h:outputText value="#{watch.name}" class="productName" />
-                        <h:outputText value="#{watch.model}" class="productModel" />
-                        <h:outputText value="#{watch.price} kr" class="productPrice" />
+                        <h:outputText value="#{webshopController.watch.name}" class="productName" />
+                        <h:outputText value="#{webshopController.watch.model}" class="productModel" />
+                        <h:outputText value="#{webshopController.watch.price} kr" class="productPrice" />
 
                         <h:commandButton styleClass="addToCart" value="Add To Cart" action="#{webshopController.addToCart()}" />
                     </div>
