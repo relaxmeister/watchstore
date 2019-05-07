@@ -19,6 +19,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.validator.ValidatorException;
 import static jdk.nashorn.internal.objects.NativeMath.round; //använder ev för matte
 
 /**
@@ -100,9 +101,9 @@ public class WebshopController implements Serializable {
         LocalDateTime now = LocalDateTime.now();
         String date = dtf.format(now);
         int orderNr = (int) ((Math.random() * 899_999_999) + 100_000_000);
-        receipt = date + "<br/>"
-                + "Ordernr " + orderNr + "<br/>"
-                + nameOnCard + "<br/><br/>"
+        receipt = "Beställningsdatum: " + date + "<br/>"
+                + "Ordernr: " + orderNr + "<br/>"
+                + "Namn: " + nameOnCard + "<br/><br/>"
                 + "Produkter:<br/>";
 
         for (Watches w : shoppingCart) {
@@ -311,12 +312,51 @@ public class WebshopController implements Serializable {
         //gör en sökning på username, om inget hit, if null -> throw exception?
         //loginUser = personHandler.findByUsername(loginUsername);
         personHandler.fillDB();
+        boolean isEitherNumberOrText = false;
 
         if (personHandler.findByUsername(createUsername).getUsername() != null) { // name taken
             FacesContext facesContext = FacesContext.getCurrentInstance();
             FacesMessage facesMessage = new FacesMessage("Username already taken"); //
             facesContext.addMessage("f2:createAccUsername", facesMessage);
             return "createAccount";
+        }
+        if (true) {
+            char[] chars = createUsername.toCharArray();
+
+            for (char c : chars) {
+                if (Character.isLetter(c) || Character.isDigit(c)) {
+                    isEitherNumberOrText = true;
+
+                } else {
+                    isEitherNumberOrText = false;
+                    break;
+                }
+            }
+            if (!isEitherNumberOrText) {
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                FacesMessage facesMessage = new FacesMessage("Otillåtet tecken"); //
+                facesContext.addMessage("f2:createAccUsername", facesMessage);
+                return "createAccount";
+            }
+        }
+        if (true) {
+            char[] chars = createPassword.toCharArray();
+
+            for (char c : chars) {
+                if (Character.isLetter(c) || Character.isDigit(c)) {
+                    isEitherNumberOrText = true;
+
+                } else {
+                    isEitherNumberOrText = false;
+                    break;
+                }
+            }
+            if (!isEitherNumberOrText) {
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                FacesMessage facesMessage = new FacesMessage("Otillåtet tecken"); //
+                facesContext.addMessage("f2:password", facesMessage);
+                return "createAccount";
+            }
         }
         personHandler.createAccount(createUsername, createPassword);
         return "index"; //username fine and unique, account successfully created
@@ -348,7 +388,7 @@ public class WebshopController implements Serializable {
     public String loginNavigation(People user) {
         if (user.getTypeOfUser().equals("admin")) {
             purchases = personHandler.getAllPurchases();
-            purchases.forEach(e -> System.out.print(e.getPerson()));
+            purchases.forEach(e -> System.out.print(e.getPerson()));// ta  bort?
             users = personHandler.getAllUsers();
             return "adminpage.xhtml";
         } else if (user.getTypeOfUser().equals("premium")) {
@@ -411,7 +451,6 @@ public class WebshopController implements Serializable {
     public void addToCart() {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, watch.getName(), null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        //System.out.println(watch.getName());
         cartBean.addToCart(watch);
         updateCart();
         countTotalPrice();
@@ -421,13 +460,13 @@ public class WebshopController implements Serializable {
         totalPrice = 0;
         shoppingCart.forEach(e -> totalPrice += e.getPrice());
         moms = totalPrice * 0.2;
-        
+
         totalPrice += 0; // för att manuellt testa decimaler
         DecimalFormat df = new DecimalFormat("#.##");
         //moms = df.format(moms);
 //        double c = 0;
 //        c = Math.Round(c, 2);
-        moms = Math.round(moms*100.0)/100.0; // blir dessvärre inte 2 decimaler som utlovat
+        moms = Math.round(moms * 100.0) / 100.0; // blir dessvärre inte 2 decimaler som utlovat
         //rounding = rounding.setScale(0); dsnt work
         //int value0 = 0;
         rounding = BigDecimal.valueOf(0);
@@ -435,7 +474,7 @@ public class WebshopController implements Serializable {
         BigDecimal bigDecimal = new BigDecimal(totalPrice);
         BigDecimal roundedWithScale = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP);
         //Debugga detta och kolla att "roundedWithScale" ger .49 /DS
-        
+
         int priceWithoutDec = (int) totalPrice;
         double withoutDec = priceWithoutDec;
         BigDecimal testUtanDec = new BigDecimal(priceWithoutDec);
@@ -443,21 +482,21 @@ public class WebshopController implements Serializable {
         testMedDec = testMedDec.setScale(2, RoundingMode.HALF_UP);
         if ((totalPrice % 1) != 0) //det krävs att det inte är jämnt för att komma in
         {
-           //rounding = testMedDec.subtract(testUtanDec);
-           //rounding = rounding.setScale(1);
-           
-           //testMedDec = testMedDec.setScale(0,RoundingMode.HALF_UP);
-           //double checker = totalPrice;
-           totalPrice = Math.round(totalPrice);
-           BigDecimal roundBigDec = new BigDecimal(totalPrice);
-           
-           if (testMedDec.compareTo(roundBigDec) == 1){ //greater than
-               rounding = roundBigDec.subtract(testMedDec);
-           }
-           if (testMedDec.compareTo(roundBigDec) == -1){ //less than
-               rounding = roundBigDec.subtract(testMedDec);
-           }
-            
+            //rounding = testMedDec.subtract(testUtanDec);
+            //rounding = rounding.setScale(1);
+
+            //testMedDec = testMedDec.setScale(0,RoundingMode.HALF_UP);
+            //double checker = totalPrice;
+            totalPrice = Math.round(totalPrice);
+            BigDecimal roundBigDec = new BigDecimal(totalPrice);
+
+            if (testMedDec.compareTo(roundBigDec) == 1) { //greater than
+                rounding = roundBigDec.subtract(testMedDec);
+            }
+            if (testMedDec.compareTo(roundBigDec) == -1) { //less than
+                rounding = roundBigDec.subtract(testMedDec);
+            }
+
 //            if (rounding.compareTo(new BigDecimal(0.5)))
 //            {
 //                totalPrice = Math.round(totalPrice);
@@ -480,7 +519,7 @@ public class WebshopController implements Serializable {
 
     public String confirmOrder() {
         setReceipt();
-        System.out.println(receipt);
+        clearBillingInfo();
         shoppingCart.forEach((Watches e) -> {
             Purchase p = new Purchase(loginUser, e, e.getPrice());
             personHandler.persist(p);
@@ -490,15 +529,23 @@ public class WebshopController implements Serializable {
         return "receipt.xhtml";
     }
 
+    public void clearBillingInfo() {
+        cardType = "";
+        chosenCard = "";
+        cardNumber = "";
+        nameOnCard = "";
+        expirationDate = "";
+        cvc = "";
+    }
+
     public void checkUserStatus() {
         if ("normal".equals(loginUser.getTypeOfUser())) {
             if (personHandler.getTotalPurchaseSum(loginUser) > 500000) {
                 loginUser.setTypeOfUser("premium");
                 getPremiumPrices(watches);
-                
-                getPremiumPrices(this.searchResult);
+
                 personHandler.updateUser(loginUser);
-            } 
+            }
         }
     }
 
@@ -508,11 +555,13 @@ public class WebshopController implements Serializable {
         });
 
     }
-    public String logOut(){
+
+    public String logOut() {
         clearForm();
         return "index.xhtml";
     }
-    public void clearForm(){
+
+    public void clearForm() {
         this.loginUser = null;
         this.users = null;
         this.user = null;
@@ -522,6 +571,7 @@ public class WebshopController implements Serializable {
         this.createPassword = null;
         this.watches = null;
         this.watch = null;
+        cartBean.clearCart();
         this.searchResult = null;
         this.searchString = null;
         this.purchases = null;
@@ -535,10 +585,15 @@ public class WebshopController implements Serializable {
         this.expirationDate = null;
         this.cvc = null;
         this.receipt = null;
-        
+
     }
 
-    
-    
-
+    public String goToProducts() {
+        searchResult.clear();
+        searchString = "";
+        for (Watches w : watches) {
+            searchResult.add(w);
+        }
+        return "webshopPage.xhtml";
+    }
 }

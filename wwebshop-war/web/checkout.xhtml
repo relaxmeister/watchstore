@@ -5,10 +5,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>WatchStore</title>
     </h:head>
     <h:body>
-        <h:outputStylesheet library="css" name="checkout.css"  />
+        <h:outputStylesheet library="css" name="checkout.css"/>
         <div id="container">
             <div id="pageContent">
                 <h:graphicImage 
@@ -20,7 +20,7 @@
                     />                
                 <div id="logoutContainer">
                     <div class="leftNavContainer">
-                        <a class="navtext" href="webshopPage.xhtml">Klockor</a>
+                        <a class="navtext" href="#{webshopController.goToProducts()}">Klockor</a>
                         <span style="margin-right: 10%; font-size: 13px; font-weight: bold">></span>
                         <a class="navtext" href="#">Checkout</a>
                     </div>
@@ -30,6 +30,10 @@
                             <h:commandLink class="navtext" action = "#{webshopController.logOut()}" value = "Log out">
                                 <f:param name = "pageId" value = "1" />
                             </h:commandLink>
+			    <h:outputLabel class="navtext"
+					   value=" #{webshopController.loginUsername}"
+					   style="font-weight: bold">
+			    </h:outputLabel>
                         </h:form>
                     </div>
                 </div>

@@ -4,11 +4,11 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>WatchStore</title>
 
     </h:head>
     <h:body>
-        <h:outputStylesheet library="css" name="productinfo.css"  />
+        <h:outputStylesheet library="css" name="productinfo.css"/>
         <div id="container">
             <div id="pageContent">
                 <h:graphicImage 
@@ -20,7 +20,7 @@
                     />
                 <div id="logoutContainer">
                     <div class="leftNavContainer">
-                        <a class="navtext" href="webshopPage.xhtml">Klockor</a>
+                        <a class="navtext" href="#{webshopController.goToProducts()}">Klockor</a>
                         <span style="margin-right: 10%; font-size: 13px; font-weight: bold">></span>
                         <a class="navtext" href="#">Klockinfo</a>
                     </div>
@@ -39,6 +39,10 @@
                             <h:commandLink class="navtext" action = "#{webshopController.logOut()}" value = "Log out">
                                 <f:param name = "pageId" value = "1" />
                             </h:commandLink>
+			    <h:outputLabel class="navtext"
+					   value=" #{webshopController.loginUsername}"
+					   style="font-weight: bold">
+			    </h:outputLabel>
                         </h:form>
                     </div>
                 </div>
@@ -51,11 +55,10 @@
                                         library="images" 
                                         rendered="true"
                                         width="80%"
-                                        height="266"
                                         />
-                        <h:outputText value="#{watch.name}" class="productName" />
-                        <h:outputText value="#{watch.model}" class="productModel" />
-                        <h:outputText value="#{watch.price} kr" class="productPrice" />
+                        <h:outputText value="#{webshopController.watch.name}" class="productName" />
+                        <h:outputText value="#{webshopController.watch.model}" class="productModel" />
+                        <h:outputText value="#{webshopController.watch.price} kr" class="productPrice" />
 
                         <h:commandButton styleClass="addToCart" value="Add To Cart" action="#{webshopController.addToCart()}" />
                     </div>

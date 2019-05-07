@@ -6,10 +6,10 @@
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>WatchStore</title>
     </h:head>
     <h:body>
-        <h:outputStylesheet library="css" name="webshopPage.css"  />
+        <h:outputStylesheet library="css" name="webshopPage.css"/>
         <div id="container">
             <div id="pageContent">
                 <h:graphicImage 
@@ -21,7 +21,7 @@
                     />
                 <div id="logoutContainer">
                     <div class="leftNavContainer">
-                        <a class="navtext" href="webshopPage.xhtml">Klockor</a>
+                        <a class="navtext" href="#{webshopController.goToProducts()}">Klockor</a>
                     </div>
                     <div class="rightNavContainer">
                         <a href="checkout.xhtml" id="cart">
@@ -34,15 +34,21 @@
                                 />
                         </a>
                         <h:outputLabel id="itemCount" value="(#{webshopController.shoppingCart.size()})"></h:outputLabel>
-                        
-                        <h:form>
-                            <h:commandLink class="navtext" action = "#{webshopController.logOut()}" value = "Log out">
-                                <f:param name = "pageId" value = "1" />
-                            </h:commandLink>
-                        </h:form>
-                       
 
-                        
+                        <h:form>
+                            <h:commandLink class="navtext"
+                                           action = "#{webshopController.logOut()}"
+                                           value = "Log out">
+                                <f:param name = "pageId" value = "1"/>
+                            </h:commandLink>
+                            <h:outputLabel class="navtext"
+                                           value=" #{webshopController.loginUsername}"
+                                           style="font-weight: bold">
+                            </h:outputLabel>
+                        </h:form>
+
+
+
                     </div>
                 </div>
 
@@ -80,10 +86,16 @@
                             </h:commandButton>                          
                         </div>
                     </ui:repeat>
+                    <div class="searchResult" style="#{webshopController.searchResult.size() != 0 ? 'display:none' : 'display:flex'}">
+                        <h4>INGA MATCHANDE ARTIKLAR</h4>
+                        <p class="noProductText">Din sökning <b>"#{webshopController.searchString}"</b> gav inga träffar</p>
+                        <p class="noProductText">Kontrollera stavningen eller försök igen med ett mindre specifikt sökord</p>
+                    </div>
                 </h:form>
+
 
             </div>
         </div>
-    </h:body>
+    </h:body>s
 </html>
 
