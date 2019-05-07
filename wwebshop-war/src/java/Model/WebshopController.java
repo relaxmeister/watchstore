@@ -339,7 +339,7 @@ public class WebshopController implements Serializable {
     public String loginNavigation(People user) {
         if (user.getTypeOfUser().equals("admin")) {
             purchases = personHandler.getAllPurchases();
-            purchases.forEach(e -> System.out.print(e.getPerson()));
+            purchases.forEach(e -> System.out.print(e.getPerson()));// ta  bort?
             users = personHandler.getAllUsers();
             return "adminpage.xhtml";
         } else if (user.getTypeOfUser().equals("premium")) {
@@ -475,7 +475,7 @@ public class WebshopController implements Serializable {
                 loginUser.setTypeOfUser("premium");
                 getPremiumPrices(watches);
 
-                getPremiumPrices(this.searchResult);
+                
                 personHandler.updateUser(loginUser);
             }
         }
