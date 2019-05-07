@@ -59,6 +59,7 @@ public class WebshopController implements Serializable {
     private double totalPrice = 0;
     private double moms;
     private BigDecimal rounding;
+    private BigDecimal rounding2;
     //kanske ett watch-obj för att bli till vid ett klick? 
     //som sedan levereras till list för shopcart
 
@@ -286,6 +287,14 @@ public class WebshopController implements Serializable {
         this.rounding = rounding;
     }
 
+    public BigDecimal getRounding2() {
+        return rounding2;
+    }
+
+    public void setRounding2(BigDecimal rounding2) {
+        this.rounding2 = rounding2;
+    }
+
     public void initUsers() {
         //kicka igång entity-users
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ready User Set Go", null);
@@ -412,9 +421,17 @@ public class WebshopController implements Serializable {
         totalPrice = 0;
         shoppingCart.forEach(e -> totalPrice += e.getPrice());
         moms = totalPrice * 0.2;
-        totalPrice += 0.49;
-        DecimalFormat df = new DecimalFormat("#.##");
         
+        totalPrice += 0; // för att manuellt testa decimaler
+        DecimalFormat df = new DecimalFormat("#.##");
+        //moms = df.format(moms);
+//        double c = 0;
+//        c = Math.Round(c, 2);
+        moms = Math.round(moms*100.0)/100.0; // blir dessvärre inte 2 decimaler som utlovat
+        //rounding = rounding.setScale(0); dsnt work
+        //int value0 = 0;
+        rounding = BigDecimal.valueOf(0);
+        rounding2 = BigDecimal.valueOf(0);
         BigDecimal bigDecimal = new BigDecimal(totalPrice);
         BigDecimal roundedWithScale = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP);
         //Debugga detta och kolla att "roundedWithScale" ger .49 /DS
@@ -423,11 +440,23 @@ public class WebshopController implements Serializable {
         double withoutDec = priceWithoutDec;
         BigDecimal testUtanDec = new BigDecimal(priceWithoutDec);
         BigDecimal testMedDec = new BigDecimal(totalPrice);
-        testMedDec = testMedDec.setScale(2, RoundingMode.CEILING);
+        testMedDec = testMedDec.setScale(2, RoundingMode.HALF_UP);
         if ((totalPrice % 1) != 0) //det krävs att det inte är jämnt för att komma in
         {
-           rounding = testMedDec.subtract(testUtanDec);
-            
+           //rounding = testMedDec.subtract(testUtanDec);
+           //rounding = rounding.setScale(1);
+           
+           //testMedDec = testMedDec.setScale(0,RoundingMode.HALF_UP);
+           //double checker = totalPrice;
+           totalPrice = Math.round(totalPrice);
+           BigDecimal roundBigDec = new BigDecimal(totalPrice);
+           
+           if (testMedDec.compareTo(roundBigDec) == 1){ //greater than
+               rounding = roundBigDec.subtract(testMedDec);
+           }
+           if (testMedDec.compareTo(roundBigDec) == -1){ //less than
+               rounding = roundBigDec.subtract(testMedDec);
+           }
             
 //            if (rounding.compareTo(new BigDecimal(0.5)))
 //            {
