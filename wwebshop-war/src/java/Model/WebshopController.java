@@ -296,14 +296,7 @@ public class WebshopController implements Serializable {
         this.rounding2 = rounding2;
     }
 
-    public void initUsers() {
-        //kicka igång entity-users
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ready User Set Go", null);
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        //om det är av intresse av life cycle
-        //personHandler.fillDBUsers();
 
-    }
 
     public String createAccountHandler() {
         //is usernametakenvalidator
@@ -449,8 +442,8 @@ public class WebshopController implements Serializable {
 //        }
 //    }
     public void addToCart() {
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, watch.getName(), null);
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+//        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, watch.getName(), null);
+//        FacesContext.getCurrentInstance().addMessage(null, msg);
         cartBean.addToCart(watch);
         updateCart();
         countTotalPrice();
