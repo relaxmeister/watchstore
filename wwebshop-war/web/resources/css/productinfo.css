@@ -7,6 +7,9 @@ and open the template in the editor.
     Created on : 2019-apr-19, 17:14:41
     Author     : admin
 */
+body {
+    font-family: 'Gugi', serif;
+}
 
 #container {
     display: flex;
@@ -56,11 +59,20 @@ and open the template in the editor.
     padding-left: 0%;
 }
 
+.usernavtext {
+    color: black;
+    text-decoration: none;
+    font-size: 12px;
+    margin: 0;
+}
 .navtext {
     color: black;
     text-decoration: none;
     font-size: 12px;
     margin: 0;
+}
+.navtext:hover {
+    text-decoration: underline;
 }
 .leftNavContainer #cart {
     margin-right: 10%;
@@ -81,13 +93,15 @@ and open the template in the editor.
 #header {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     
-    background-color: #eee;
-    width: 100%;
+    width: 500px;
 }
-
+.sidekick {
+    width: 35%;
+    border-bottom: 1px solid lightgrey;
+}
 #content {
     display: flex;
     flex-direction: column;
@@ -107,6 +121,20 @@ and open the template in the editor.
     margin-top: 12px;
     width: 100%;
 }
+.productImg {
+    width: 100%;
+    height: 260px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.productImg img {
+    max-height: 90%;
+    max-width: 100%;
+    object-fit: contain;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
 
 
 
@@ -121,11 +149,12 @@ and open the template in the editor.
     color: grey;
     font-size: 12px;
 }
-
+.disclaimer {
+    font-size: 10px;
+}
 .productPrice {
     font-size: 26px;
     color: darkred;
-    display: block;
     font-weight: bolder;
 }
 
@@ -163,17 +192,17 @@ and open the template in the editor.
     font-size: 14px;
 }
 .addToCart {
-    background-color:green;
-    -moz-border-radius:8px;
-    -webkit-border-radius:8px;
-    border-radius:8px;
+    background-color:#c41966;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
     /*border:1px solid #18ab29;*/
     text-align: center;
     display:inline-block;
     cursor:pointer;
     color:#ffffff;
-    font-family:Arial;
-    font-size:17px;
+    
+    font-size:12px;
     padding:16px;
     text-decoration:none;
     text-shadow:0px 1px 0px #2f6627;
@@ -183,8 +212,8 @@ and open the template in the editor.
     border: none;
 }
 .addToCart:hover {
-    background-color:#d1d3d1;
-    color: grey;
+    background-color:#a81758;
+    
 }
 .addToCart:active {
     position:relative;

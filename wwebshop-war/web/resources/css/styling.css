@@ -51,6 +51,8 @@ and open the template in the editor.
     height: 30px;
     margin-top: 5px;
     margin-bottom: 10px;
+    font-family: 'Gugi', serif;
+    font-size: 12px;
 }
 
 .textButton {

@@ -7,7 +7,9 @@ and open the template in the editor.
     Created on : 2019-apr-17, 22:39:44
     Author     : admin
 */
-
+body {
+    font-family: 'Gugi', serif;
+}
 #container {
     display: flex;
     flex-direction: column;
@@ -32,7 +34,7 @@ and open the template in the editor.
     align-items: center;
     width: 100%;
     height: 18px;
-    
+
 }
 
 .leftNavContainer {
@@ -49,19 +51,28 @@ and open the template in the editor.
     flex-direction: row;
     align-items: center;
     margin-right: 3%;
-    
+
 
 }
 .rightNavContainer .navtext{
     padding-left: 0%;
 }
-
+.usernavtext {
+    color: black;
+    text-decoration: none;
+    font-size: 12px;
+    margin: 0;
+}
 .navtext {
     color: black;
     text-decoration: none;
     font-size: 12px;
     margin: 0;
 }
+.navtext:hover {
+    text-decoration: underline;
+}
+
 .leftNavContainer #cart {
     margin-right: 10%;
     height:18px;
@@ -81,11 +92,14 @@ and open the template in the editor.
 #header {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    border: 1px solid black;
-    border-bottom: none;
-    width: 100%;
+    
+    width: 500px;
+}
+.sidekick {
+    width: 35%;
+    border-bottom: 1px solid lightgrey;
 }
 
 #searchBar {
@@ -129,9 +143,22 @@ and open the template in the editor.
     margin-top: 12px;
 
 }
-
+.productImg {
+    width: 100%;
+    height: 240px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.productImg img {
+    max-height: 90%;
+    max-width: 100%;
+    object-fit: contain;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
 .productName {
-    font-size: 12px;
+    font-size: 11px;
     display: block;
 }
 
@@ -143,22 +170,22 @@ and open the template in the editor.
 .productPrice {
     font-size: 18px;
     color: darkred;
-    display: block;
+    
     font-weight: bold;
 }
 
 .addToCart {
-    background-color:green;
+    background-color:#1e2126;
     -moz-border-radius:8px;
-    -webkit-border-radius:8px;
-    border-radius:8px;
+    -webkit-border-radius:2px;
+    border-radius:3px;
     /*border:1px solid #18ab29;*/
     text-align: center;
     display:inline-block;
     cursor:pointer;
     color:#ffffff;
-    font-family:Arial;
-    font-size:16px;
+    font-family: 'Gugi', serif;
+    font-size:12px;
     padding:16px;
     text-decoration:none;
     text-shadow:0px 1px 0px #2f6627;
@@ -168,8 +195,8 @@ and open the template in the editor.
     border: none;
 }
 .addToCart:hover {
-    background-color:#d1d3d1;
-    color: grey;
+    background-color:black;
+    
 }
 .addToCart:active {
     position:relative;
@@ -183,7 +210,7 @@ and open the template in the editor.
     align-items: center;
     width: 100%;
     text-align: center;
-    
+
 }
 .noProductText {
     margin: 0;
@@ -193,5 +220,5 @@ and open the template in the editor.
 .noProductHeadline {
     font-size: 16px;
     font-weight: bold;
-    
+
 }

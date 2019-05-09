@@ -58,12 +58,15 @@ and open the template in the editor.
 #header {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    border: 1px solid black;
-    width: 100%;
+    
+    width: 500px;
 }
-
+.sidekick {
+    width: 40%;
+    border-bottom: 1px solid lightgrey;
+}
 #content {
     display: flex;
     flex-direction: column;

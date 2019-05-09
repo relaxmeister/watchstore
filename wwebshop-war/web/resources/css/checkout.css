@@ -7,6 +7,9 @@ and open the template in the editor.
     Created on : 2019-apr-19, 17:22:55
     Author     : admin
 */
+body {
+    font-family: 'Gugi', serif;
+}
 
 #container {
     display: flex;
@@ -56,20 +59,33 @@ and open the template in the editor.
     padding-left: 0%;
 }
 
+.usernavtext {
+    color: black;
+    text-decoration: none;
+    font-size: 12px;
+    margin: 0;
+}
 .navtext {
     color: black;
     text-decoration: none;
     font-size: 12px;
     margin: 0;
 }
+.navtext:hover {
+    text-decoration: underline;
+}
 
 #header {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    border: 1px solid black;
-    width: 100%;
+    
+    width: 500px;
+}
+.sidekick {
+    width: 35%;
+    border-bottom: 1px solid lightgrey;
 }
 
 .content {
@@ -94,17 +110,21 @@ and open the template in the editor.
 }
 .productName {
     font-weight: bold;
-    font-size: 14px;
+    font-size: 13px;
     display: block;
 }
 .productModel {
-    font-size: 12px;
+    font-size: 11px;
     display: block;
 }
 .productPrice {
-    font-size: 12px;
-    font-weight: bold;
-    display: block;
+    font-size: 11px;
+    font-weight: bold; 
+}
+.priceCurrency {
+    padding: 3px;
+    font-size: 11px;
+    font-weight: bold; 
 }
 .product .part1 {
     display: flex;
@@ -121,6 +141,9 @@ and open the template in the editor.
 .product .part1 .imgLink {
     height: 100%;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }
 
 .product .part1 .imgLink img {
@@ -154,6 +177,8 @@ and open the template in the editor.
     justify-content: center;
     align-items: center;
 }
+
+
 .product .part4 {
     display: flex;
     
@@ -217,41 +242,40 @@ and open the template in the editor.
 }
 
 .wrapperPart2 {
-    display: flex;
-    justify-content: flex-start;
+    
     width: 25%;
     padding-left: 8px;
 }
 .moms {
-    font-size: 12px;
+    font-size: 11px;
     
     
 }
 .momsSvar {
-    font-size: 12px;
+    font-size: 11px;
 }
 .totalHeadline {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: none;
 }
 
 .totalPrice {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bolder;
 }
 
 .placeOrder {
-    background-color:#3f9687;
-    -moz-border-radius:8px;
-    -webkit-border-radius:8px;
-    border-radius:8px;
+    background-color:#c41966;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
     border:1px solid #18ab29;
     text-align: center;
     display:inline-block;
     cursor:pointer;
     color:#ffffff;
-    font-family:Arial;
-    font-size:17px;
+    font-family: 'Gugi', serif;
+    font-size:12px;
     padding:16px;
     text-decoration:none;
     text-shadow:0px 1px 0px #2f6627;
@@ -261,13 +285,18 @@ and open the template in the editor.
     border: none;
 }
 
-#placeOrder:hover {
-    background-color:#d1d3d1;
-    color: grey;
+.placeOrder:hover {
+    background-color:#a81758;
+    
 }
 
-#placeOrder:active {
+.placeOrder:active {
     position:relative;
     top:1px;
 }
 
+.emptyCart {
+    display: flex;
+    justify-content: center;
+    align-text: center;
+}

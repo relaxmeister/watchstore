@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>WatchStore</title>
-
+        <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet" />
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="productinfo.css"/>
@@ -39,26 +39,36 @@
                             <h:commandLink class="navtext" action = "#{webshopController.logOut()}" value = "Log out">
                                 <f:param name = "pageId" value = "1" />
                             </h:commandLink>
-			    <h:outputLabel class="navtext"
-					   value=" #{webshopController.loginUsername}"
-					   style="font-weight: bold">
-			    </h:outputLabel>
+                            <h:outputLabel class="usernavtext"
+                                           value=" #{webshopController.loginUsername}"
+                                           style="font-weight: bold">
+                            </h:outputLabel>
                         </h:form>
                     </div>
                 </div>
                 <div id="header">
-                    <h1>ProductInfo</h1>
+                    <div class="sidekick"/>
+                    <h4>ProductsInfo</h4>
+                    <div class="sidekick"/>
                 </div>
                 <h:form id="content">                   
                     <div class="product">
+                        <h:outputText value="#{webshopController.watch.name}" class="productName" />
+                        <h:outputText value="#{webshopController.watch.model}" class="productModel" />
+                        <div class="productImg">
                         <h:graphicImage name="#{webshopController.watch.image}.jpg" 
                                         library="images" 
                                         rendered="true"
-                                        width="80%"
+                                        
                                         />
-                        <h:outputText value="#{webshopController.watch.name}" class="productName" />
-                        <h:outputText value="#{webshopController.watch.model}" class="productModel" />
-                        <h:outputText value="#{webshopController.watch.price} kr" class="productPrice" />
+                        </div>
+                        <h:outputText value="DETTA ÄR EN BILD AV DEN FAKTISKA KLOCKAN" class="disclaimer" />
+                        <div>
+                            <h:outputText value="#{webshopController.watch.price}" class="productPrice">
+                                <f:convertNumber pattern="#0"/>
+                            </h:outputText>
+                            <h:outputText value=" kr" class="productPrice"/>
+                        </div>
 
                         <h:commandButton styleClass="addToCart" value="Add To Cart" action="#{webshopController.addToCart()}" />
                     </div>
